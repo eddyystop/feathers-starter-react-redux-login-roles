@@ -1,0 +1,45 @@
+
+OK - pass message to usernavbar
+OK - use webpack dev server
+OK - js map for better source locs
+OK - Try signing in with the saved JWT.
+OK - Save current user in store.
+OK - Authentication and authorization on routes.
+OK - in users/signin we don't display an err msg when user is not verified. need to reject({ email: 'not verified })'
+OK - error message on bad sign in as authentication not redux-like
+OK - ? maybe convert app.authenticate() into a more redux flow.
+This might mean interfacing with app.authenticate via raw HTTP which is not clean.
+OK - ? use redux-form field array to edit roles
+OK - make sure user/signin logs out first
+OK - regex for valid password, email, username, etc in config file.
+OK - make sure all validations are active common/helpers/usersClientValidations.js
+OK - make sure all ser validations are active
+OK - removeVerifications only if client provider and !!forceRemove. then change verifyReset
+OK - move iff() to common hooks
+OK - test everything (esp verify-reset) with no pagination on users
+OK - doc 'unique' call to verify-reset
+OK - doc ownId in uniqueness
+OK - doc change to params in verifySignUp
+
+NO - ? reducer.plugin to remove passwords in forms (no need)
+
+- still haven't found a clean way to clear error msgs from the status bar.
+- get structure for error messages for nested objects, arrays for ekryski
+- users patch hook on server - only for user or admin acct
+- generic rtn for middleware, store, etc. just pass it middleware & reducers, get store back.
+- work on scripts in package.json
+
+Documentation
+- doc usage from readme in feathers-service-verify-reset src
+
+Maybes
+- decent sample emails, like the verify email one.
+- sanitize config.security
+
+Potential enhancements
+- wrong permission in React routing signs user out. Display status msg instead.
+- Some changes in user info get user signed out to force in new user info. Can we avoid?
+- validation/sanitization callback for verifyRest routes?
+- ? How far to go with logging of server, of client? Outside scope of repo?
+- ? implement https://medium.freecodecamp.com/internationalization-in-react-7264738274a0#.80b6wylrg
+- ? service for user verification so feathers-client not needed at all. would enable HTTP clinets.
