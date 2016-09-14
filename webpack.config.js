@@ -34,3 +34,10 @@ module.exports = {
     contentBase: './client',
   },
 };
+
+/*
+ - [x] [Autoprefixer](https://github.com/postcss/autoprefixer)
+ - [x] [PostCSS](https://github.com/postcss/postcss)
+ - [x] [CSS modules](https://github.com/outpunk/postcss-modules)
+ - [x] [Rucksack](http://simplaio.github.io/rucksack/docs)
+ */
