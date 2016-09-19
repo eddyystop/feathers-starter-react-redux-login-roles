@@ -1,0 +1,132 @@
+
+/* eslint new-cap: 0 */
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { Router, Route, IndexRedirect, browserHistory } from 'react-router';
+import { syncHistoryWithStore, replace } from 'react-router-redux';
+import { UserAuthWrapper } from 'redux-auth-wrapper';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+import configureStore from './store';
+import { feathersAuthentication, appConfig } from './feathers';
+
+import './utils/react-tap-event';
+
+import AppWrapper from './screens';
+import UserSignIn from './screens/Users/UserSignIn';
+import UserSignUp from './screens/Users/UserSignUp';
+import UserSignUpSendEmail from './screens/Users/UserSignUpSendEmail';
+import UserSignUpValidateEmail from './screens/Users/UserSignUpValidateEmail';
+import UserForgotPwdSendEmail from './screens/Users/UserForgotPwdSendEmail';
+import UserForgotPwdReset from './screens/Users/UserForgotPwdReset';
+import UserPasswordChange from './screens/Users/UserPasswordChange';
+import UserEmailChange from './screens/Users/UserEmailChange';
+import UserProfileChange from './screens/Users/UserProfileChange';
+import UserRolesChange from './screens/Users/UserRolesChange';
+import UserProfile from './screens/Users/UserProfile';
+import UserSignInPending from './screens/Users/UserSignInPending';
+import App from './screens/App';
+import makeDebug from './utils/debug-isomorphic';
+
+const debug = makeDebug('index');
+debug('client starting');
+
+const store = configureStore();
+const history = syncHistoryWithStore(browserHistory, store);
+
+// Handle uncaught exceptions. Located here as it needs store.dispatch .
+// setupOnUncaughtExceptions();
+
+// Sign in with the JWT currently in localStorage
+if (localStorage['feathers-jwt']) {
+  store.dispatch(feathersAuthentication.authenticate());
+}
+
+// Authentication Higher Order Components to wrap route components.
+const UserIsAuthenticated = UserAuthWrapper({
+  // extract user data from state
+  authSelector: (state /* , ownProps, boolean */) => state.auth.user,
+
+  /* When signin is pending but not fulfilled: */
+  // determine if signin is pending
+  authenticatingSelector: (state /* , ownProps */) => state.auth.isLoading,
+  // component to render while signin is pending
+  LoadingComponent: UserSignInPending,
+
+  /* When signin is not pending. User is authenticated or not. */
+  // determine if user is authenticated
+  predicate: user => user && user.isVerified,
+  // route to signin component
+  failureRedirectPath: '/user/signin',
+
+  /* Once signin is successful: */
+  // redirect on successful signin to component being authenticated
+  allowRedirectBack: true,
+  // action to dispatch to redirect
+  redirectAction: replace,
+
+  /* For documentation: */
+  wrapperDisplayName: 'UserIsAuthenticated',
+});
+
+const UserIsAdmin = UserAuthWrapper({
+  authSelector: (state) => state.auth.user,
+  predicate: user => {
+    if (!(user && user.isVerified && user.roles)) {
+      return false;
+    }
+
+    return appConfig.users.roles.allowedToChangeRoles.some(role => user.roles.indexOf(role) !== -1);
+  },
+  failureRedirectPath: '/user/signin',
+  allowRedirectBack: false,
+  // redirectAction: replace,
+  wrapperDisplayName: 'UserIsAdmin',
+});
+
+// Routing
+ReactDOM.render(
+  <MuiThemeProvider>
+    <Provider store={store}>
+      <Router history={history}>
+        <Route path="/" component={AppWrapper}>
+          <IndexRedirect to="/app" />
+          <Route path="/app" component={UserIsAuthenticated(App)} />
+          <Route path="/user/signin" component={UserSignIn} />
+          <Route path="/user/signup" component={UserSignUp} />
+          <Route path="/user/signupsendemail" component={UserSignUpSendEmail} />
+          <Route path="/user/verify/:token" component={UserSignUpValidateEmail} />
+          <Route path="/user/forgotpwdsendemail" component={UserForgotPwdSendEmail} />
+          <Route path="/user/forgot/:token" component={UserForgotPwdReset} />
+          <Route path="/user/passwordchange" component={UserIsAuthenticated(UserPasswordChange)} />
+          <Route path="/user/emailchange" component={UserIsAuthenticated(UserEmailChange)} />
+          <Route path="/user/profilechange" component={UserIsAuthenticated(UserProfileChange)} />
+          <Route path="/user/roleschange"
+                 component={UserIsAuthenticated(UserIsAdmin(UserRolesChange))}
+          />
+          <Route path="/user/profile" component={UserIsAuthenticated(UserProfile)} />
+        </Route>
+      </Router>
+    </Provider>
+  </MuiThemeProvider>,
+  document.getElementById('root')
+);
+
+// Handle uncaught exceptions
+function setupOnUncaughtExceptions() { // eslint-disable-line no-unused-vars
+  window.addEventListener('error', (e) => {
+    e.preventDefault();
+    const error = e.error;
+    console.error(error); // eslint-disable-line no-console
+
+    const message = error.message || ''; // eslint-disable-line no-unused-vars
+    const stack = (error.stack || '').split('\n'); // eslint-disable-line no-unused-vars
+    /*
+     store.dispatch(writeLogEntry('error', 'client uncaught exception',
+     { error: { message, stack }, tags: 'client:error' }
+     ));
+     */
+  });
+}

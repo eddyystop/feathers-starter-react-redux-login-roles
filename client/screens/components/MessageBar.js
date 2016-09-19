@@ -5,7 +5,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { getFeathersStatus } from '../../feathers';
 
 const MessageBar = ({ message, servicesRootState }) => {
-  let barMessage = message || getFeathersStatus(servicesRootState).message;
+  const barMessage = message || getFeathersStatus(servicesRootState).message;
 
   return !barMessage
     ? <div />

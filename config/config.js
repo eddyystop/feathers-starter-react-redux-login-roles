@@ -2,9 +2,19 @@
 module.exports = {
   env: {
     ifNode: typeof window === 'undefined',
+    NODE_ENV: 'devserver',
+    PORT: 3030, // 3030 is 'feathers generate' default
+    LOG_LEVEL: 'info',
+    LOG_FILE: './logs/log.log',
+    LOG_CONSOLE_LEVEL: 'silly',
+    DEBUG: '',
   },
   client: {
     defaultRoute: '/app',
+  },
+  database: {
+    // property name of record key. either _id or id.
+    idName: '_id',
   },
   users: {
     roles: {

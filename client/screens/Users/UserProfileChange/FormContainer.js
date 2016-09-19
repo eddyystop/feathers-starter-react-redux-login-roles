@@ -13,7 +13,7 @@ const asyncValidate = (values, dispatch) => new Promise((resolve, reject) => {
   dispatch(feathersServices.verifyReset.create({
     action: 'unique',
     value: { username: values.username },
-    ownId: values._id,
+    ownId: values.id || values._id,
     meta: { noErrMsg: true },
   }))
     .then(() => resolve())
@@ -21,7 +21,7 @@ const asyncValidate = (values, dispatch) => new Promise((resolve, reject) => {
 });
 
 const handleSubmit = (values, dispatch) => new Promise((resolve, reject) => {
-  dispatch(feathersServices.users.patch(values._id,
+  dispatch(feathersServices.users.patch(values.id || values._id,
     { name: values.name.trim(), username: values.username.trim() }
   ))
     .then(() => {
@@ -41,7 +41,7 @@ const mapStateToProps = (state) => {
   const user = state.auth.user;
   return {
     initialValues: {
-      _id: user._id,
+      _id: user.id || user._id,
       name: user.name,
       username: user.username,
       email: user.email,

@@ -1,5 +1,5 @@
 {
-  "name": "feathers-starter-react-redux-login",
+  "name": "feathers-starter-react-redux-login-roles",
   "version": "0.0.3",
   "description": "React+Redux+Feathersjs boilerplate with a functional local login supporting email verification and password reset.",
   "scripts": {
@@ -10,7 +10,7 @@
     "buildxxx": "NODE_ENV=production webpack --history-api-fallback --progress --colors | grep -v  \"\\[built\\]\"",
     "prebuild:dev": "rm -rf ./server/public/dist",
     "build:dev": "webpack --history-api-fallback --progress --colors | grep -v  \"\\[built\\]\"",
-    "build:devserver": "NODE_ENV=dev_server webpack-dev-server --content-base server/public/dist/ | grep -v  \"\\[built\\]\"",
+    "build:devserver": "NODE_ENV=devserver webpack-dev-server --content-base server/public/dist/ | grep -v  \"\\[built\\]\"",
     "start": "node server/",
     "mocha": "mocha test/ --recursive",
     "npm:patch": "npm version patch && npm publish",
@@ -18,27 +18,9 @@
     "npm:major": "npm version major && npm publish",
     "npm:updates": "npm-check-updates"
   },
-  "scriptsxxx": {
-    "copy": "rm -rf lib/ && cp -r src/ lib/",
-    "babel": "babel src/ --out-dir lib --presets babel-preset-es2015,babel-preset-stage-0",
-    "babel:watch": "babel src/ --watch --out-dir lib --presets babel-preset-es2015,babel-preset-stage-0",
-    "mocha": "mocha test/  --reporter spec --compilers js:babel-core/register",
-    "mocha:es6": "mocha test/ --reporter spec",
-    "eslint": "eslint src/. test/. --ext .js,.jsx .",
-    "build": "npm run copy && npm run babel",
-    "test": "npm run build && npm run eslint && npm run mocha",
-    "test:es6": "npm run eslint && npm run mocha:es6",
-    "cover": "node_modules/istanbul/lib/cli.js cover node_modules/mocha/bin/_mocha -- --reporter spec test/*",
-    "watch": "npm run copy && npm run babel:watch",
-    "git:push": "npm run build && git push origin && git push origin --tags",
-    "npm:patch": "npm version patch && npm publish",
-    "npm:minor": "npm version minor && npm publish",
-    "npm:major": "npm version major && npm publish",
-    "npm:updates": "npm-check-updates"
-  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eddyystop/feathers-starter-react-redux-login.git"
+    "url": "git+https://github.com/eddyystop/feathers-starter-react-redux-login-roles.git"
   },
   "keywords": [
     "feathers",
@@ -54,9 +36,9 @@
   "author": "John Szwaronek <johnsz9999@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/eddyystop/feathers-starter-react-redux-login/issues"
+    "url": "https://github.com/eddyystop/feathers-starter-react-redux-login-roles/issues"
   },
-  "homepage": "https://github.com/eddyystop/feathers-starter-react-redux-login#readme",
+  "homepage": "https://github.com/eddyystop/feathers-starter-react-redux-login-roles#readme",
   "dependencies": {
     "bcryptjs": "^2.3.0",
     "body-parser": "^1.15.2",
@@ -64,6 +46,8 @@
     "cors": "^2.8.1",
     "crypto": "^0.0.3",
     "debug": "^2.2.0",
+    "dotenv": "2.0.0",
+    "envalid": "^2.2.0",
     "feathers": "^2.0.1",
     "feathers-authentication": "^0.7.10",
     "feathers-configuration": "^0.3.3",
@@ -76,6 +60,7 @@
     "feathers-service-verify-reset": "^0.4.7",
     "feathers-socketio": "^1.4.1",
     "joi": "^9.0.4",
+    "morgan": "1.7.0",
     "nedb": "^1.8.0",
     "object.assign": "^4.0.4",
     "passport": "^0.3.2",
@@ -89,7 +74,7 @@
     "redux-promise-middleware": "^3.3.2",
     "redux-thunk": "^2.1.0",
     "serve-favicon": "^2.3.0",
-    "winston": "^2.2.0"
+    "winston": "2.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.14.0",
@@ -105,6 +90,7 @@
     "babel-preset-stage-0": "^6.5.0",
     "chai": "^3.5.0",
     "coveralls": "^2.11.12",
+    "css-loader": "^0.25.0",
     "eslint": "^3.5.0",
     "eslint-config-airbnb": "^10.0.0",
     "eslint-plugin-import": "^1.15.0",
@@ -119,6 +105,7 @@
     "istanbul": "^0.4.5",
     "material-ui": "^0.15.4",
     "mocha": "^3.0.2",
+    "postcss-loader": "^0.13.0",
     "react-router": "^2.8.1",
     "react-router-redux": "^4.0.5",
     "redux-auth-wrapper": "^0.8.0",
@@ -126,6 +113,7 @@
     "redux-form-material-ui": "^4.0.1",
     "redux-multi": "^0.1.12",
     "request": "^2.74.0",
+    "style-loader": "^0.13.1",
     "webpack": "^1.13.2",
     "webpack-dev-server": "^1.15.2"
   },

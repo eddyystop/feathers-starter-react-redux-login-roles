@@ -6,11 +6,15 @@ const hooks = require('feathers-hooks-common');
 const auth = require('feathers-authentication').hooks;
 const verifyHooks = require('feathers-service-verify-reset').hooks;
 
+const config = require('../../../../config/config');
+const emailer = require('../../../helpers/emails');
 const client = require('../../../../common/helpers/usersClientValidations');
 const schemas = require('../../../validations/schemas');
 const server = require('../../../validations/usersServerValidations');
 
 const validateSchema = require('feathers-hooks-validate-joi');
+
+const idName = config.database.idName;
 
 exports.before = (app) => {
   const verifyReset = app.service('/verifyReset/:action/:value');
@@ -27,7 +31,7 @@ exports.before = (app) => {
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated(),
-      auth.restrictToOwner({ ownerField: '_id' }),
+      auth.restrictToOwner({ ownerField: idName }),
     ],
     create: [
       validateSchema.form(schemas.signup, schemas.options), // schema validation
@@ -44,7 +48,7 @@ exports.before = (app) => {
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated(),
-      auth.restrictToOwner({ ownerField: '_id' }),
+      auth.restrictToOwner({ ownerField: idName }),
     ],
     patch: [ // client route /user/rolechange patches roles. might check its an admin acct
       auth.verifyToken(),
@@ -55,7 +59,7 @@ exports.before = (app) => {
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated(),
-      auth.restrictToOwner({ ownerField: '_id' }),
+      auth.restrictToOwner({ ownerField: idName }),
     ],
   };
 };
@@ -89,11 +93,16 @@ exports.after = {
 };
 
 function emailVerification(hook, next) {
-  const user = hook.result;
+  const user = clone(hook.result);
+  const params = hook.params;
 
-  console.log('-- Sending email to verify new user\'s email addr');
-  console.log(`Dear ${user.username}, please click this link to verify your email addr.`);
-  console.log(`  http://localhost:3030/user/verify/${user.verifyToken}`);
+  emailer('send', user, params, (err) => {
+    next(err, hook);
+  });
+}
 
-  next(null, hook);
+// Helpers
+
+function clone(obj) {
+  return JSON.parse(JSON.stringify(obj));
 }

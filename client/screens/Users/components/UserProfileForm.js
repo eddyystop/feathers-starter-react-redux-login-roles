@@ -6,6 +6,8 @@ import { Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import style from './button.css';
+
 const Form = (props) => {
   const { handleSubmit, pristine, reset, submitting, invalid } = props;
 
@@ -57,13 +59,13 @@ const Form = (props) => {
         <div>
           <RaisedButton label={submitting ? 'Saving...' : 'Save'}
             disabled={pristine || invalid || submitting || props.disableAll}
-            style={{ margin: '12px' }}
+            className={style.button}
             type="submit"
             primary
           />
           <RaisedButton label="Clear Values"
             disabled={pristine || submitting || props.disableAll}
-            style={{ margin: '12px' }}
+            className={style.button}
             onTouchTap={reset}
             secondary
           />

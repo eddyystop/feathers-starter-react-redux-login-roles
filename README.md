@@ -4,9 +4,9 @@ Easily use Feathers services with Redux.
 
 [![Build Status](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles.svg?branch=master)](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles)
 
-> Added production code. Working now on docs.
+> Added code. Working now on docs. See To Do below.
 
-## Features
+## <a name="features"></a> Features
 
 - Designed as a foundation for building commercial applications.
 - Local authentication including email verification, forgotten passwords, change email, password, etc.
@@ -17,13 +17,19 @@ Easily use Feathers services with Redux.
 - Async server verification for the UI, as well as client-side verification.
 - Share UI verification code between client and server.
 
-## Server contains
+## <a name="serverContains"></a> Server contains
 
 - [x] [Feathersjs](https://github.com/feathersjs/feathers) with [Express](https://github.com/expressjs)
 - [x] [Feathers-socketio](https://github.com/feathersjs/feathers-socketio) for socket.io transport
 - [x] [Feathers-rest](https://github.com/feathersjs/feathers-rest) for HTTP transport
 - [x] [Feathers-service-verify-reset](https://github.com/eddyystop/feathers-service-verify-reset)
 - [x] [Feathers-hooks-validate-joi](https://github.com/eddyystop/feathers-hooks-validate-joi)
+- [x] [Dotenv](https://github.com/motdotla/dotenv) Loads environment variables from .env. (1.8k stars)
+- [x] [Envalid](https://github.com/af/envalid) Environment variable validation,
+- [x] [Winston](https://github.com/winstonjs/winston)
+a multi-transport async logging library for node.js (6.1k stars)
+- [x] [Morgan](https://github.com/expressjs/morgan)
+HTTP request logger middleware for node.js (1.7k stars)
 - [x] [Feathers-nedb](https://github.com/feathersjs/feathers-nedb).
 You can cleanly and easily [swap databases](http://docs.feathersjs.com/databases/readme.html).
 
@@ -49,24 +55,31 @@ RethinkDB,
 Riak,
 SQL Server,
 
-## Client contains
+## <a name="ClientContains"></a> Client contains
 
 - [x] [React](https://facebook.github.io/react/) & React-dom
 - [x] [Redux](https://github.com/reactjs/redux)
 - [x] [Redux-auth-wrapper](https://github.com/mjrussell/redux-auth-wrapper)
+for Redux and React-Router permissions. (550 stars)
 - [x] [Redux-form](https://github.com/erikras/redux-form)
-- [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension)
+to manage form state in Redux (version 6). (3.5k stars)
+- [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension),
+like gaearon/redux-devtools but better. (2k stars)
 - [x] [Material-ui](https://github.com/callemall/material-ui)
+implement Google's Material Design. (19k stars)
 - [x] [Feathers-client](https://github.com/feathersjs/feathers-client) using socket.io
 - [x] [Feathers-reduxify-services](https://github.com/eddyystop/feathers-reduxify-services)
 - [x] [Feathers-reduxify-authentication](https://github.com/eddyystop/feathers-reduxify-authentication)
 
-## Client build contains
+## <a name="clientBuildChain"></a> Client build chain contains
 
 - [x] [Webpack](https://webpack.github.io)
 - [x] [Babel](https://babeljs.io/)
+- [x] [Postcss-modules](https://github.com/css-modules/postcss-modules)
+scope CSS names locally, export a map for rendering React components.
+(css-modules 4.7k stars)
 
-## Motivation
+## <a name="motivation"></a> Motivation
 
 A complete, working project on which you can build your own Feathers, React, Redux app.
 
@@ -80,9 +93,15 @@ The project contains comprehensive local authentication and authorization includ
 
 Point browser to `localhost:3030` to start app.
 
-User authorization features accessible from icon menus on `/user/signin` and `/app`. 
+User authorization features accessible from icon menus on `/user/signin` and `/app`.
 
-## <a name="todo"></a> To do
+## <a name="gettingStarted"></a> [Getting Started.](./GETTING_STARTED.md)
+
+## <a name="processExitCodes"></a> [Process Exit Codes.](./PROCESS_EXIT_CODES.md)
+
+## <a name="faq"></a> [FAQ.](./FAQ.md)
+
+## <a name="todo"></a> To Do
 
 - Docs on how to configure the package.
 - Doc on what files do what.

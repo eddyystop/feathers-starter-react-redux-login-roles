@@ -19,15 +19,40 @@ module.exports = {
           'babel-loader',
         ],
       },
+      {
+        // When require'd, these /client/../*.inject.css files are injected into the DOM as is.
+        test: /\.inject\.css$/,
+        include: /client/,
+        loader: 'style!css',
+      },
+      {
+        // When required, the class names in these /client/../*.css are returned as an object.
+        // after being made unique. The css with the modified class names is injected into the DOM.
+        test: /^(?!.*\.inject\.css).*\.css$/,
+        include: /client/,
+        loaders: [
+          'style-loader',
+          'css-loader?modules&sourceMap&importLoaders=1&localIdentName=' +
+          '[name]__[local]___[hash:base64:5]',
+          'postcss-loader',
+        ],
+      },
+      {
+        // Standard processing for .css outside /client
+        test: /\.css$/,
+        exclude: /client/,
+        loader: 'style!css',
+      },
     ],
   },
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
   plugins: [
-    new webpack.OldWatchingPlugin(), // using "webpack-dev-server --watch-poll" instead
-    new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development') },
+    // Webpack's default file watcher does not work in Virtual Machines with NFS file systems.
+    new webpack.OldWatchingPlugin(), // Using "webpack-dev-server --watch-poll" instead
+    new webpack.DefinePlugin({ // Define replacements for global constants in the client code.
+      '__processEnvNODE_ENV__': JSON.stringify(process.env.NODE_ENV || 'devserver'),
     }),
   ],
   devServer: {
@@ -35,9 +60,7 @@ module.exports = {
   },
 };
 
-/*
+/* add
  - [x] [Autoprefixer](https://github.com/postcss/autoprefixer)
- - [x] [PostCSS](https://github.com/postcss/postcss)
- - [x] [CSS modules](https://github.com/outpunk/postcss-modules)
  - [x] [Rucksack](http://simplaio.github.io/rucksack/docs)
  */

@@ -6,6 +6,7 @@ import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 
 import configSecurity from '../../../../config/config.security';
+import style from './style.css';
 
 const email = configSecurity.email;
 
@@ -55,7 +56,7 @@ TheComponent.propTypes = {
 
 function welcomeMessage(user) {
   return (
-    <div style={{ margin: 'auto', width: '60%', fontFamily: 'Roboto, Arial' }}>
+    <div className={style.message}>
       <br />
       <h3>Hi {user.name},</h3>
       <p>Thanks for confirming your account.

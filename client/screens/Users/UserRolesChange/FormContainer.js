@@ -14,8 +14,8 @@ const loadUsers = (startUsername, isGte) => {
   const query = {
     username: { [isGte ? '$gte' : '$gt']: startUsername },
     $sort: { username: 1 },
-    $limit: 3,
-    $select: ['_id', 'username', 'roles'],
+    $limit: 10,
+    $select: ['id', '_id', 'username', 'roles'],
   };
 
   return feathersServices.users.find({ query });
@@ -33,7 +33,7 @@ const handleSubmit = (values, dispatch) => new Promise((resolve) => {
   // update current set of users
   values.users.forEach((user, index) => {
     if (user.roles !== initialUsers[index].roles) {
-      actions.push(feathersServices.users.patch(user._id, { roles: user.roles.trim() }));
+      actions.push(feathersServices.users.patch(user.id || user._id, { roles: user.roles.trim() }));
     }
   });
 

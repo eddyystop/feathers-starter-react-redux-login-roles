@@ -4,16 +4,19 @@ import { Field, FieldArray } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import style from '../components/button.css';
+import styleTable from './style.css';
+
 const renderUsers = ({ fields }) => {
   const table = (
-    <table style={{ font: 'Arial', borderCollapse: 'collapse', borderSpacing: 0 }}>
-      <thead style={{ textAlign: 'left' }}>
+    <table className={styleTable.tbody}>
+      <thead className={styleTable.thead}>
         <tr>
           <th>Username</th>
           <th>Roles ('acct purch rec')</th>
         </tr>
       </thead>
-      <tbody style={{ border: 1 }}>
+      <tbody className={styleTable.tbody}>
       {fields.map((userFieldName /* , index */) => (
         <tr key={userFieldName}>
           <td>
@@ -49,7 +52,7 @@ class Form extends Component {
         />
         <RaisedButton label="Filter"
           disabled={submitting}
-          style={{ margin: '12px' }}
+          className={style.button}
           onClick={() => loadUsers()}
           secondary
         />
@@ -62,13 +65,13 @@ class Form extends Component {
         <div>
           <RaisedButton label={submitting ? 'Changing...' : 'Change'}
             disabled={pristine || invalid || submitting}
-            style={{ margin: '12px' }}
+            className={style.button}
             type="submit"
             primary
           />
           <RaisedButton label="Clear Values"
             disabled={pristine || submitting}
-            style={{ margin: '12px' }}
+            className={style.button}
             onTouchTap={reset}
             secondary
           />

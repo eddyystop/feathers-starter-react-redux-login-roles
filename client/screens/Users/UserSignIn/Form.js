@@ -4,6 +4,8 @@ import { Field } from 'redux-form';
 import { TextField } from 'redux-form-material-ui';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import style from '../components/button.css';
+
 class Form extends Component {
   componentWillMount() {
     this.props.handleLogout();
@@ -36,13 +38,13 @@ class Form extends Component {
         <div>
           <RaisedButton label={submitting ? 'Signing In...' : 'Sign In'}
             disabled={invalid || submitting}
-            style={{ margin: '12px' }}
+            className={style.button}
             type="submit"
             primary
           />
           <RaisedButton label="Clear Values"
             disabled={pristine || submitting}
-            style={{ margin: '12px' }}
+            className={style.button}
             onTouchTap={reset}
             secondary
           />

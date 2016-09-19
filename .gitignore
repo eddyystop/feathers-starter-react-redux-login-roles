@@ -1,6 +1,8 @@
 
 ### Specific to project ##########
 
+# environmental variables
+#.env
 # build
 lib/
 # checklists

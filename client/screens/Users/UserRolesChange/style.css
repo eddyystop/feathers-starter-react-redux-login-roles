@@ -1,0 +1,14 @@
+
+.table {
+    font-family: Arial;
+    border-collapse: collapse;
+    border-spacing: 0
+}
+
+.thead {
+    text-align: left;
+}
+
+.tbody {
+    border: 1px;
+}
