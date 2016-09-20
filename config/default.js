@@ -7,22 +7,22 @@ const hr = min * 60;
 const root = process.cwd();
 
 module.exports = {
-  env: {
-    NODE_ENV: 'devserver',
-    PORT: 3030,
-    LOG_LEVEL: 'silly',
-    LOG_FILE: './logs/log/log',
-    LOG_CONSOLE_LEVEL: 'silly',
-    DEBUG: '',
-  },
+  NODE_ENV: undefined,
+  DEBUG: undefined,
   server: {
-    host: null,
-    port: null,
-    public: path.join(root, 'public'),
+    host: undefined,
+    port: undefined,
+    logsPath: undefined,
+    publicPath: path.join(root, 'public'),
+  },
+  logs: {
+    logLevel: undefined,
+    path: undefined,
+    logConsoleLevel: undefined,
   },
   auth: {
     token: {
-      secret: null,
+      secret: undefined,
     },
     local: {},
   },
@@ -31,7 +31,8 @@ module.exports = {
     defaultRoute: '/app', // *********************** need to get into server/app
   },
   database: {
-    path: path.join(root, 'data-dev'), // property name of record key. either _id or id.
+    path: undefined,
+    // property name of record key. either _id or id.
     idName: '_id', // ***************** is this used anywhere?
   },
   users: {
@@ -57,8 +58,8 @@ module.exports = {
     },
     providers: {
       postmark: {
-        fromEmail: null,
-        postmarkApiToken: null,
+        fromEmail: undefined,
+        postmarkApiToken: undefined,
       },
     },
   },

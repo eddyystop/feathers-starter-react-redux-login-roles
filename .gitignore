@@ -9,6 +9,7 @@ lib/
 docs-secure/
 # Authentication information
 *.secure.js
+#config/local*
 
 ### Standard .gitignore ##########
 

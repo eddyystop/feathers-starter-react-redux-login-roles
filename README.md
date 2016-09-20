@@ -4,7 +4,7 @@ Easily use Feathers services with Redux.
 
 [![Build Status](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles.svg?branch=master)](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles)
 
-> Added code. Working now on docs. See To Do below.
+> In progress. This should be working. Changes are being made to harden it for production.
 
 ## <a name="features"></a> Features
 
@@ -25,7 +25,9 @@ Easily use Feathers services with Redux.
 - [x] [Feathers-service-verify-reset](https://github.com/eddyystop/feathers-service-verify-reset)
 - [x] [Feathers-hooks-validate-joi](https://github.com/eddyystop/feathers-hooks-validate-joi)
 - [x] [Dotenv](https://github.com/motdotla/dotenv) Loads environment variables from .env. (1.8k stars)
-- [x] [Envalid](https://github.com/af/envalid) Environment variable validation,
+- [x] [Envalid](https://github.com/af/envalid) Environment variable validation
+- [x] [Node-config](https://github.com/lorenwest/node-config) node.js application configuration.
+(1.6k stars)
 - [x] [Winston](https://github.com/winstonjs/winston)
 a multi-transport async logging library for node.js (6.1k stars)
 - [x] [Morgan](https://github.com/expressjs/morgan)
@@ -78,6 +80,12 @@ implement Google's Material Design. (19k stars)
 - [x] [Postcss-modules](https://github.com/css-modules/postcss-modules)
 scope CSS names locally, export a map for rendering React components.
 (css-modules 4.7k stars)
+- [x] [Autoprefixer](https://github.com/postcss/autoprefixer)
+add vendor prefixes. (10.7k stars)
+- [x] [Rucksack](https://github.com/simplaio/rucksack)
+a little bag of CSS superpowers, built on PostCSS. (1.5k stars)
+- [x] [Html-webpack-plugin](https://github.com/ampedandwired/html-webpack-plugin)
+simplifies creation of HTML files to serve your webpack bundles. (1.7k stars)
 
 ## <a name="motivation"></a> Motivation
 
@@ -87,37 +95,41 @@ The project contains comprehensive local authentication and authorization includ
 
 ## <a name="running"></a> Running the starter package
 
-`npm start` to start the server on port 3030.
+With Webpack-dev-server:
+`npm run build:devserver` on one process to start the webpack-dev-server on port 8080.
+`npm run start:devserver` to start the server on port 3030.
+Point browser to `localhost:3030` to start app.
 
-`npm run build:devserver` to start the webpack dev-server on port 8080.
-
+Production build:
+`npm run build`.
+`npm start`.
 Point browser to `localhost:3030` to start app.
 
 User authorization features accessible from icon menus on `/user/signin` and `/app`.
 
-## <a name="gettingStarted"></a> [Getting Started.](./GETTING_STARTED.md)
+## <a name="gettingStarted"></a> [Getting Started.](./doc/GETTING_STARTED.md)
 
-## <a name="processExitCodes"></a> [Process Exit Codes.](./PROCESS_EXIT_CODES.md)
+## <a name="processExitCodes"></a> [Process Exit Codes.](./doc/PROCESS_EXIT_CODES.md)
 
-## <a name="faq"></a> [FAQ.](./FAQ.md)
+## <a name="faq"></a> [FAQ.](./doc/FAQ.md)
 
 ## <a name="todo"></a> To Do
 
 - Docs on how to configure the package.
 - Doc on what files do what.
-- Enhance webpack.config.js to production.
+- DONE. Enhance webpack.config.js to production.
 - Cleanup package.json scripts & for production.
-- Production build.
+- DONE. Production build.
 
 ## <a name="contribution"></a> Contributing
 
-[Contribute to this repo.](./CONTRIBUTING.md)
+[Contribute to this repo.](./doc/CONTRIBUTING.md)
 
 [Guide to ideomatic contributing.](https://github.com/jonschlinkert/idiomatic-contributing)
 
 ## <a name="changeLog"></a> Change Log
 
-[List of notable changes.](./CHANGELOG.md)
+[List of notable changes.](./doc/CHANGELOG.md)
 
 ## <a name="license"></a> License
 

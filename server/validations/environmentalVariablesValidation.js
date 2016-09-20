@@ -2,7 +2,7 @@
 const envalid = require('envalid');
 const config = require('../../config/config');
 
-module.exports = function environmentalVariablesValidation(app, logger) {
+module.exports = function environmentalVariablesValidation(logger) {
   const strPropType = envalid.str;
 
   // valid NODE_ENV values.
@@ -14,6 +14,7 @@ module.exports = function environmentalVariablesValidation(app, logger) {
     devserver: 'devserver',
     testing: 'devserver',
     test: 'devserver',
+    DEBUG: '',
   };
 
   const cleanEnv = envalid.cleanEnv(process.env,

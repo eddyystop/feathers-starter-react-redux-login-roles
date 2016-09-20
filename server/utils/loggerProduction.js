@@ -84,10 +84,10 @@ logger.setLevels = (levels) => {
 };
 
 logger.setMorgan = () => {
-  morgan.token('username', (req) => (req.user ? req.user.username || '' : '')); // set middleware
+  morgan.token('username', (req) => (req.user ? req.user.username || '' : '')); // from middleware
 
   const terseFormat = '{"method":":method", "url":":url", "status":":status", ' +
-    '"ms":":response-time", "username":":username"}';
+    '"ms":":response-time"}';
 
   const verboseFormat = [
     '{',

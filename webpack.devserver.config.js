@@ -1,5 +1,6 @@
 
 const webpack = require('webpack'); // eslint-disable-line import/no-unresolved
+const rucksack = require('rucksack-css');
 const path = require('path');
 
 module.exports = {
@@ -48,19 +49,21 @@ module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx'],
   },
+  postcss: [
+    rucksack({
+      autoprefixer: true
+    })
+  ],
   plugins: [
     // Webpack's default file watcher does not work in Virtual Machines with NFS file systems.
-    new webpack.OldWatchingPlugin(), // Using "webpack-dev-server --watch-poll" instead
-    new webpack.DefinePlugin({ // Define replacements for global constants in the client code.
-      '__processEnvNODE_ENV__': JSON.stringify(process.env.NODE_ENV || 'devserver'),
+    new webpack.OldWatchingPlugin(), // can use "webpack-dev-server --watch-poll" instead
+    // Define replacements for global constants in the client code.
+    new webpack.DefinePlugin({
+      'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV) }, // used by React, etc?
+      '__processEnvNODE_ENV__': JSON.stringify(process.env.NODE_ENV), // used by us
     }),
   ],
   devServer: {
     contentBase: './client',
   },
 };
-
-/* add
- - [x] [Autoprefixer](https://github.com/postcss/autoprefixer)
- - [x] [Rucksack](http://simplaio.github.io/rucksack/docs)
- */

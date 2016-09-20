@@ -1,7 +1,7 @@
 {
   "host": "users-auth-app.feathersjs.com",
-  "port": 80,
-  "nedb": "NEDB_BASE_PATH",
+  "PORT": "80",
+  "nedb": "../data-prod/",
   "public": "../public/",
   "auth": {
     "token": {

@@ -29,6 +29,11 @@ If not don't forget to have a reporter for envalid.
 
 NO - ? reducer.plugin to remove passwords in forms (no need)
 
+- be able to log ourselves when middleware errors.
+- Reinsert \n for errors on console.
+- move docs into /docs
+- get ./config.js accessible via app.get(...)
+
 - still haven't found a clean way to clear error msgs from the status bar.
 - get structure for error messages for nested objects, arrays for ekryski
 - users patch hook on server - only for user or admin acct

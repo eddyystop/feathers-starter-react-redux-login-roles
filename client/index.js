@@ -5,18 +5,19 @@ import { syncHistoryWithStore } from 'react-router-redux';
 import configureStore from './store';
 import { feathersAuthentication } from './feathers';
 import router from './router';
-
 import './utils/react-tap-event';
 import makeDebug from './utils/debug-isomorphic';
 
 const debug = makeDebug('index');
 debug('client starting');
 
+console.log(`..This bundle was built for the ${__processEnvNODE_ENV__} environment.`);
+
+// Initialize Redux
 const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store);
 
 // Handle uncaught exceptions.
-console.log(`..This bundle was built for the ${__processEnvNODE_ENV__} environment.`);
 if (__processEnvNODE_ENV__ === 'production') {
   setupOnUncaughtExceptions();
 }
@@ -26,7 +27,7 @@ if (localStorage['feathers-jwt']) {
   store.dispatch(feathersAuthentication.authenticate());
 }
 
-// Setup router
+// Setup React router
 router(store, history);
 
 // Handle uncaught exceptions

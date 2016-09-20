@@ -11,7 +11,7 @@ You need not worry as everything here is v6, the lastest and greatest.
 The amount of churn is React-router is [well known](https://news.ycombinator.com/item?id=12511419).
 React-route v4 is a rewrite and the churn may well be even higher than normal.
 
-We have decided to remain on v3, which will continue to be maintained,
+We have decided to remain on v3 for now, which will continue to be maintained,
 because as developers writing practical software, we need some project stability.
 
 ## <a name="reduxDevTool"></a> Why you not using
