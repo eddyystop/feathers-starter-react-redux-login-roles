@@ -115,21 +115,9 @@ You can configure the logger in `server/utils/loggerProduction.js`.
 Note that the logger is set up before the environment variables are validated and sanitized.
 NODE_ENV must contain the char fragment 'prod' for production mode.
 
-## <a name="config"></a> How is the active configuration determined?
+## <a name="configHow"></a> [How is the application configuration determined](../CONFIG_README.md)?
 
-- The configuration is contained in `config/config.js`.
-- Some environmental variable defaults are set there.
-- Environmental variables may be overridden by the current terminal environmental values.
-- Environmental variable values may be overridden by the `.env` file.
-- Environmental variables may be overridden by server start command
-e.g. `LOG_LEVEL=info,DEBUG=var* npm start`.
-
-However to get logging started properly:
-- Environmental variable NODE_ENV must either contain
-`prod` for production mode, or a development mode will be assumed.
-- Environmental variable LOG_LOGGER must be either `prod` or `production` for the production logger,
-`fake` for the development logger,
-or `switch` to choose based on NODE_ENV.
+## <a name="config"></a> Tell me about the configuration values.
 
 ## <a name="start"></a> How do you start the server?
 
