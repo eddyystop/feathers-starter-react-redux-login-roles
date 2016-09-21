@@ -1,6 +1,6 @@
 {
   "name": "feathers-starter-react-redux-login-roles",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "React+Redux+Feathersjs boilerplate with a functional local login supporting email verification and password reset.",
   "scripts": {
     "eslint": "eslint client/. common/. config/. server/. test/. --ext .js,.jsx .",
