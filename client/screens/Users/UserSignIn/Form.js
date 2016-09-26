@@ -8,19 +8,16 @@ import style from '../components/button.css';
 
 class Form extends Component {
   componentWillMount() {
-    //console.log('usersignin component componetwillmount');
     this.props.handleLogout();
   }
 
   componentWillReceiveProps(nextProps) {
-    //console.log('usersignin component componentwillrecprops');
     if (!this.props.isAuthenticated && nextProps.isAuthenticated) { // true after successful submit
       this.props.handleRedirect();
     }
   }
 
   render() {
-    //console.log('usersignin component render start');
     const { handleSubmit, pristine, reset, submitting, invalid } = this.props;
 
     const a = (
@@ -56,7 +53,6 @@ class Form extends Component {
       </form>
     );
 
-    //console.log('usersignin component render return');
     return a;
   }
 }

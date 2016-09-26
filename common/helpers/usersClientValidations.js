@@ -1,5 +1,5 @@
 
-/* eslint no-param-reassign: 0 */
+/* eslint no-param-reassign: 0, no-var: 0 */
 
 var auth = {};
 
@@ -16,8 +16,8 @@ var auth = {};
  * These validations are in a different module from the Joi and server validations
  * so that the client can use these without being forced to import Joi.
  *
- * .setClientValidationsConfig(config) must be called with either the server or client config before any
- * validations may be performed.
+ * .setClientValidationsConfig(config) must be called with either the server or client config
+ * before any validations may be performed.
  */
 
 const clientValidations = {};

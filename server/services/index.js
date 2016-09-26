@@ -1,9 +1,8 @@
 
-/* eslint no-console: 0 */
+/* eslint no-console: 0, no-param-reassign: 0 */
 
 const debug = require('debug')('service:index');
 const config = require('config');
-const hooks = require('feathers-hooks-common');
 const auth = require('feathers-authentication').hooks;
 
 const authentication = require('./authentication');

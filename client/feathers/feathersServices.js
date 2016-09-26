@@ -3,7 +3,10 @@
 
 // See feathers-reduxify-services::default
 export const mapServicePathsToNames = {
-  users: 'users', messages: 'messages', logs: 'logs', config: 'config',
+  users: 'users',
+  messages: 'messages',
+  logs: 'logs',
+  config: 'config',
   // Do not change the following. Hardcoded path for custom service: human name for further use.
   '/verifyReset/:action/:value': 'verifyReset',
 };

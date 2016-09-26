@@ -19,7 +19,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch, ownProps) => ({
   validateSignUpEmailToken: (emailToken) => {
     dispatch(feathersServices.verifyReset.create({ action: 'verify', value: emailToken }))
-      .catch(err => {}); // Nav bar will display error status
+      .catch(() => {}); // Nav bar will display error status
   },
   resetMe: () => {
     dispatch(feathersAuthentication.logout());

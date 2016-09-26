@@ -1,4 +1,6 @@
 
+/* eslint no-useless-escape: 0, quotes: 0 */
+
 const path = require('path');
 const defer = require('config/defer').deferConfig;
 

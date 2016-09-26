@@ -16,14 +16,14 @@ const handleSubmit = (values, dispatch) => new Promise((resolve, reject) => {
     .then(() => {
       alert( // eslint-disable-line no-alert
         `An email to reset your password has been sent to ${values.email}. ` +
-        `It is valid for the next ${config.authEmails.expires.forgotPasswordEmailTokenTimeValidText}.`
+        `It is valid for ${config.authEmails.expires.forgotPasswordEmailTokenTimeValidText}.`
       );
 
       dispatch(push('/user/signin'));
       resolve();
     })
     .catch(err => {
-      console.log(err);
+      console.log(err); // eslint-disable-line no-console
       return err;
     })
     .catch(err => reject(err instanceof errors.BadRequest

@@ -1,7 +1,7 @@
 
-var randomString = require('./randomString');
+const randomString = require('./randomString');
 
-var clientConfig = {};
+var clientConfig = {}; // eslint-disable-line no-var
 
 // Load client config. Async.
 module.exports.configLoad = (store, feathersServices) =>
@@ -28,9 +28,11 @@ module.exports.configLoad = (store, feathersServices) =>
       store.dispatch(feathersServices.logs.create({
         level: 'error',
         msg: 'Client config get fail',
-        payload: { deviceId: localStorage.deviceId, error }
+        payload: { deviceId: localStorage.deviceId, error },
       }))
-        .catch(err => console.log('Client config.js unexpected error:', err.message));
+        .catch(err => console.log( // eslint-disable-line no-console
+          'Client config.js unexpected error:', err.message
+        ));
     });
 
 // Return current value of clientConfig. We cannot do this with ES6 as far as I can tell.
@@ -38,5 +40,5 @@ module.exports.configLoad = (store, feathersServices) =>
 Object.defineProperty(module.exports, 'config', {
   get() {
     return clientConfig;
-  }
+  },
 });

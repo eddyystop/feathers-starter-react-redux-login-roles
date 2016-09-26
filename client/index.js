@@ -31,8 +31,8 @@ if (nodeEnv === 'production') {
 if (localStorage['feathers-jwt']) {
   store.dispatch(feathersAuthentication.authenticate())
     .catch(err => {
-      console.log('******************************************authenticate catch', err);
-      return err
+      console.log('authenticate catch', err); // eslint-disable-line no-console
+      return err;
     });
 }
 
@@ -47,7 +47,8 @@ configLoad(store, feathersServices)
     setClientValidationsConfig(clientConfig);
 
     // Setup React Router which starts up the rest of the app
-    const router = require('./router').default;
+    const router = require('./router').default; // eslint-disable-line global-require
+
     router(store, history);
   })
   .catch(err => err);
@@ -67,11 +68,13 @@ function setupOnUncaughtExceptions() { // eslint-disable-line no-unused-vars
     // We cannot depend on the logger running properly. Try to log to server directly.
     if (store && store.dispatch && feathersServices && feathersServices.logs) {
       store.dispatch(feathersServices.logs.create({
-          level: 'error',
-          msg: 'Uncaught exception',
-          error: { message, stack, deviceId: localStorage.deviceId }
-        }))
-        .catch(err => console.log('onUncaughtExceptions error while logging:\n', err));
+        level: 'error',
+        msg: 'Uncaught exception',
+        error: { message, stack, deviceId: localStorage.deviceId },
+      }))
+        .catch(err => console.log( // eslint-disable-line no-console
+          'onUncaughtExceptions error while logging:\n', err
+        ));
     }
   });
 }

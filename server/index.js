@@ -48,6 +48,7 @@ handleUncaughtException();
 
 // Pass config to whatever needs it
 const usersClientValidations = require('../common/helpers/usersClientValidations');
+
 usersClientValidations.setClientValidationsConfig(config);
 
 // Start server

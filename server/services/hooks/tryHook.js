@@ -1,3 +1,6 @@
+
+/* eslint consistent-return: 0 */
+
 /**
  * Run a hook. If the hook fails, its like it never ran.
  * You would typically use this to wrap already available hooks e.g. auth.verifyToken().

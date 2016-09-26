@@ -1,4 +1,6 @@
 
+/* eslint prefer-spread: 0 */
+
 // See http://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript/8084248#8084248
 // answers by amichair, amichair and Martijn de Milliano
 
@@ -10,13 +12,13 @@
 // The apply trick will turn it into a dense array.
 // Finally, with map, we replace that undefined the (same) value of 1.
 
-const s = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const s = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 const slen = s.length;
 
 /**
  * Generate a random string of lower/upper case letters and numbers.
  *
- * @param {Number} len - Length if string to generate
+ * @param {number} len - Length if string to generate
  * @returns {string} Random string, length len.
  */
 module.exports = (len) =>
