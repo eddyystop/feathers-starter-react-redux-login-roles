@@ -1,28 +1,62 @@
 
 /* eslint no-console: 0 */
 
-// Define environment variables
+const debug = require('debug')('server:index');
+const environmentalVariablesValidation = require('./validations/environmentalVariablesValidation');
+
+// Load environment variables.
+debug('Load environment variables');
 require('dotenv').config({ silent: true });
 
-// Initialize logger
+// Validate & sanitize env vars. (We need a sanitized NODE_ENV before we can do anything else.)
+debug('Sanitize env vars');
+const [envErrs, env] = environmentalVariablesValidation();
+
+// Load the app configuration, now that we have a valid NODE_ENV
+debug('Load app config');
+const config = require('config');
+
+Object.freeze(config); // prevent anything, anywhere from changing the config
+
+// Initialize logger, now that we have a valid config
+debug('Start logger');
 const logger = require('./utils/loggerProduction');
 
 logger.info('==============================================================');
-logger.info(`Server initialization started in ${process.env.NODE_ENV.toUpperCase()} mode.`,
+logger.info(`Server initialization started in ${config.NODE_ENV.toUpperCase()} mode.`,
   { tags: 'server' });
 logger.info('==============================================================');
 
-// Handle uncaught exceptions
+// Log env vars
+debug('Log env vars');
+if (envErrs) {
+  logger.error('Env var errors. Exiting.', { errors: envErrs, tags: 'exit' });
+  exitProcess(101);
+}
+
+logger.info('Env vars', { data: env, tags: 'server' });
+
+// Log config
+debug('Log config');
+if (config.isProduction) {
+  logger.info('App config', { data: config, tags: 'server' });
+}
+
+// Handler for uncaught exceptions
+debug('Handler for uncaught exceptions');
 handleUncaughtException();
 
-// Validate environment variables
-const environmentalVariablesValidation = require('./validations/environmentalVariablesValidation');
-environmentalVariablesValidation(logger);
+// Pass config to whatever needs it
+const usersClientValidations = require('../common/helpers/usersClientValidations');
+usersClientValidations.setClientValidationsConfig(config);
 
 // Start server
-const port = normalizePort(process.env.PORT);
+const port = normalizePort(config.server.port);
 
+debug('Require app');
 const app = require('./app');
+
+debug('Start server');
 const server = app.listen(port)
   .on('error', onError)
   .on('listening', onListening);
@@ -31,10 +65,11 @@ const server = app.listen(port)
 // Consider enhancements at: https://coderwall.com/p/4yis4w/node-js-uncaught-exceptions
 function handleUncaughtException() {
   process.on('uncaughtException', (error) => {
+    debug('Uncaught exception');
     console.error('\n\n=== uncaught exception ================='); // eslint-disable-line no-console
     console.error(error.message); // eslint-disable-line no-console
     console.error(error.stack); // eslint-disable-line no-console
-    console.error('========================================\n\n')
+    console.error('========================================\n\n');
 
     const message = error.message || '';
     const stack = (error.stack || '').split('\n');
@@ -61,6 +96,7 @@ function normalizePort(val) {
 
 // Event listener for HTTP server "error" event.
 function onError(error) {
+  debug('onError');
   if (error.syscall !== 'listen') {
     throw error;
   }
@@ -91,13 +127,16 @@ function onListening() {
   const bind = typeof addr === 'string'
     ? `pipe ${addr}`
     : `port ${addr.port}`;
+
+  debug(`Server listening on ${bind}`);
   logger.info(`Server listening on ${bind}`, { tags: 'server' });
 }
 
 // Exit process
 function exitProcess(code = 1) {
+  debug(`Exit code ${code}`);
   logger.error('========================================');
-  logger.error('Exit Process', {  error: { code }, tags: 'exit' });
+  logger.error('Exit Process', { error: { code }, tags: 'exit' });
   logger.error('========================================');
 
   // Wait long enough for all log entries to be written.

@@ -4,7 +4,8 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import errors from 'feathers-errors';
 
-import { feathersAuthentication, appConfig }
+import { config } from '../../../utils/config';
+import { feathersAuthentication }
   from '../../../feathers';
 import usersClientValidations from '../../../../common/helpers/usersClientValidations';
 import Form from './Form';
@@ -29,7 +30,7 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     dispatch(feathersAuthentication.logout());
   },
   handleRedirect: () => {
-    dispatch(push(ownProps.redirectTo || appConfig.client.defaultRoute));
+    dispatch(push(ownProps.redirectTo || config.client.defaultRoute));
   },
 });
 

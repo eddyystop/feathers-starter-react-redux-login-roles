@@ -20,10 +20,10 @@ const handleSubmit = (values, dispatch) => new Promise((resolve, reject) => {
   dispatch(feathersServices.verifyReset.create(
     { action: 'email', value: { password: values.password, email: values.email } }
   ))
-  .then(() => {
-    dispatch(push('/user/signin')); // this will force state.auth.user to be updated
-    resolve();
-  })
+    .then(() => {
+      dispatch(push('/user/signin')); // this will force state.auth.user to be updated
+      resolve();
+    })
     .catch(err => reject(err instanceof errors.BadRequest
       ? new SubmissionError(Object.assign({}, err.errors, { _error: err.message || '' }))
       : err

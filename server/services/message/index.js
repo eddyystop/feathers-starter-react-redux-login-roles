@@ -1,14 +1,22 @@
 
+const debug = require('debug')('service:message');
 const path = require('path');
 const NeDB = require('nedb');
 const service = require('feathers-nedb');
+const config = require('config');
+
 const hooks = require('./hooks');
+
+debug('Required');
 
 module.exports = function () {
   const app = this;
+  const fileName = path.join(config.database.path, 'messages.db');
+  debug(`Config for ${fileName}`);
+
 
   const db = new NeDB({
-    filename: path.join(app.get('nedb'), 'messages.db'),
+    filename: fileName,
     autoload: true,
   });
 
@@ -31,4 +39,6 @@ module.exports = function () {
 
   // Set up our after hooks
   messageService.after(hooks.after);
+
+  debug('Config complete');
 };

@@ -4,12 +4,10 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import errors from 'feathers-errors';
 
+import { config } from '../../../utils/config';
 import { feathersServices } from '../../../feathers';
 import Form from './Form';
 import usersClientValidations from '../../../../common/helpers/usersClientValidations';
-import configSecurity from '../../../../config/config.security';
-
-const email = configSecurity.emailSecurity;
 
 const asyncValidate = (values, dispatch) => new Promise((resolve, reject) => {
   dispatch(feathersServices.verifyReset.create({
@@ -26,7 +24,7 @@ const handleSubmit = (values, dispatch) => new Promise((resolve, reject) => {
     .then(() => {
       alert( // eslint-disable-line no-alert
         `A confirmation email has been sent to ${values.email}. ` +
-        `It is valid for the next ${email.signUpEmailTokenTimeValidText}.`
+        `It is valid for the next ${config.authEmails.expires.signUpEmailTokenTimeValidText}.`
       );
       dispatch(push('/user/signin'));
       resolve();

@@ -99,7 +99,7 @@
 <% } %>
 
 <% for (var chunk in htmlWebpackPlugin.files.chunks) { %>
-<script src="/<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script> <!-- / is important. -->
+<script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
 <% } %>
 
 <% if (htmlWebpackPlugin.options.devServer) { %>

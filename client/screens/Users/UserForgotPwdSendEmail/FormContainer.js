@@ -4,26 +4,28 @@ import { push } from 'react-router-redux';
 import { connect } from 'react-redux';
 import errors from 'feathers-errors';
 
+import { config } from '../../../utils/config';
 import { feathersServices } from '../../../feathers';
 import Form from './Form';
 import usersClientValidations from '../../../../common/helpers/usersClientValidations';
-import configSecurity from '../../../../config/config.security';
-
-const email = configSecurity.emailSecurity;
 
 const handleSubmit = (values, dispatch) => new Promise((resolve, reject) => {
   dispatch(feathersServices.verifyReset.create(
     { action: 'forgot', value: values.email }
   ))
-  .then(() => {
-    alert( // eslint-disable-line no-alert
-      `An email to reset your password has been sent to ${values.email}. ` +
-      `It is valid for the next ${email.forgotPasswordEmailTokenTimeValidText}.`
-    );
+    .then(() => {
+      alert( // eslint-disable-line no-alert
+        `An email to reset your password has been sent to ${values.email}. ` +
+        `It is valid for the next ${config.authEmails.expires.forgotPasswordEmailTokenTimeValidText}.`
+      );
 
-    dispatch(push('/user/signin'));
-    resolve();
-  })
+      dispatch(push('/user/signin'));
+      resolve();
+    })
+    .catch(err => {
+      console.log(err);
+      return err;
+    })
     .catch(err => reject(err instanceof errors.BadRequest
       ? new SubmissionError(Object.assign({}, err.errors, { _error: err.message || '' }))
       : err

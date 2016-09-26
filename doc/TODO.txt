@@ -26,32 +26,51 @@ DONE - external css modules required from songs.
 DONE - generic rtn for middleware, store, etc. just pass it middleware & reducers, get store back.
 DONE - ? How far to go with logging of server, of client? Outside scope of repo?
 If not don't forget to have a reporter for envalid.
+DONE - Reinsert \n for errors on console.
+DONE - move docs into /docs
+DONE - get ./config.js accessible via app.get(...)
+DONE - server serves diff payload depending on NODE_ENV. devserver, dev, prod
+DONE - webpack.config from songs and all that entails.
+DONE - doc validate env variables
+DONE - work on scripts in package.json
+DONE - debugs should be all debug or isomorphic-debug
+DONE - finalize debug() on all server code
+DONE - upgrade to redux-promise-middleware v4.
 
 NO - ? reducer.plugin to remove passwords in forms (no need)
+NO - be able to log ourselves when middleware errors.
+NO - server/middleware/not-found-handler.js should it log?
+NO - /middleware/logger should it log? that logger removed
 
-- be able to log ourselves when middleware errors.
-- Reinsert \n for errors on console.
-- move docs into /docs
-- get ./config.js accessible via app.get(...)
+- Docs on how to configure the package.
+- Doc on what files do what.
+- DONE. Enhance webpack.config.js to production.
+- Cleanup package.json scripts & for production.
+- DONE. Production build.
+- hot-loader
+- HTTPS
+DONE - more docs
+- sample tests
+DONE - doc webpack.config ,=====================
 
-- still haven't found a clean way to clear error msgs from the status bar.
+- https https://news.ycombinator.com/item?id=12574510
+- wanna do some HTTP2? https://medium.com/@imjacobclark/http-2-with-node-js-85da17322812#.91d0vhksz
+- check what we log, don't log on server
+- remove spurious uncaught in promise messages. Even necessary? Advisable?
+
+- still need a clean way to intelligently clear no longer needed error msgs from the status bar.
 - get structure for error messages for nested objects, arrays for ekryski
 - users patch hook on server - only for user or admin acct
-- work on scripts in package.json
 - copy sample test code for react, require faking, etc. from songs.
-- server serves diff payload depending on NODE_ENV. devserver, dev, prod
-- webpack.config from songs and all that entails.
-- debugs should be all debig or isomorphic-debug
-- check what we log on server
 
 Documentation
 - doc usage from readme in feathers-service-verify-reset src
-- FAQ to list alternative code commented out.
+DONE - FAQ to list alternative code commented out.
 By type of change, list modules whose code needs to be uncommented. "Supersize me"?
 
 Maybes
 - decent sample emails, like the verify email one.
-- sanitize config.security
+- validate final app config
 
 Potential enhancements
 - wrong permission in React routing signs user out. Display status msg instead.

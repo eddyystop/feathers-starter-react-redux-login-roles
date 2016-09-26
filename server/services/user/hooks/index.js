@@ -5,14 +5,13 @@
 const hooks = require('feathers-hooks-common');
 const auth = require('feathers-authentication').hooks;
 const verifyHooks = require('feathers-service-verify-reset').hooks;
+const validateSchema = require('feathers-hooks-validate-joi');
+const config = require('config');
 
-const config = require('../../../../config/config');
 const emailer = require('../../../helpers/emails');
 const client = require('../../../../common/helpers/usersClientValidations');
 const schemas = require('../../../validations/schemas');
 const server = require('../../../validations/usersServerValidations');
-
-const validateSchema = require('feathers-hooks-validate-joi');
 
 const idName = config.database.idName;
 
@@ -50,7 +49,7 @@ exports.before = (app) => {
       auth.restrictToAuthenticated(),
       auth.restrictToOwner({ ownerField: idName }),
     ],
-    patch: [ // client route /user/rolechange patches roles. might check its an admin acct
+    patch: [ // client route /user/rolechange patches roles. todo might check its an admin acct
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated(),

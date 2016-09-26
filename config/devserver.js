@@ -1,2 +1,2 @@
 
-module.exports = require('./devserver');
+module.exports = require('./development');

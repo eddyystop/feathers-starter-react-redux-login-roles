@@ -1,6 +1,4 @@
 
-const path = require('path');
-
 module.exports = {
   server: {
     host: 'localhost',
@@ -15,8 +13,8 @@ module.exports = {
   authEmails: {
     providers: {
       postmark: {
-        fromEmail: 'jszwaronek@universal.com', // must be verified with postmarkapp.com
-        postmarkApiToken: '00917934-dbe7-4883-bedc-12b93fc4c7c5', // our account token
+        fromEmail: '...@....com', // must be verified with postmarkapp.com
+        postmarkApiToken: '00917934-dbe7-4883-bedc-12b93fc4c7c59', // our account token
       },
     },
   },

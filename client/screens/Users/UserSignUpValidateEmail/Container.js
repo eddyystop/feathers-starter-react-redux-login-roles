@@ -11,14 +11,15 @@ const mapStateToProps = (state) => ({
     if (!vr.isFinished) { return 'checking'; }
     if (!vr.isError) { return 'verified'; }
     const vrErr = vr.isError.errors;
-    if (!vrErr || !vrErr.className) { return 'general'; }
-    return vrErr.className;
+    if (!vrErr || !vrErr.$className) { return 'general'; }
+    return vrErr.$className;
   })(),
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   validateSignUpEmailToken: (emailToken) => {
-    dispatch(feathersServices.verifyReset.create({ action: 'verify', value: emailToken }));
+    dispatch(feathersServices.verifyReset.create({ action: 'verify', value: emailToken }))
+      .catch(err => {}); // Nav bar will display error status
   },
   resetMe: () => {
     dispatch(feathersAuthentication.logout());

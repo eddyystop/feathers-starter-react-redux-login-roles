@@ -3,7 +3,9 @@
 /* eslint newline-per-chained-call: 0 */
 
 const Joi = require('joi');
-const debug = require('debug')('valid:schema'); // eslint-disable-line no-unused-vars
+const debug = require('debug')('validation:schema'); // eslint-disable-line no-unused-vars
+
+debug('Required');
 
 const username = Joi.string().trim().alphanum().min(5).max(30).required();
 const password = Joi.string().trim().regex(/^[\sa-zA-Z0-9]+$/, 'letters, numbers, spaces')
@@ -33,3 +35,5 @@ module.exports = {
   }),
   changeEmail: Joi.object().keys({ password, email }),
 };
+
+debug('Schemas defined');

@@ -1,7 +1,7 @@
 
 /* eslint no-param-reassign: 0 */
 
-const auth = require('../../config/config').validation.auth;
+var auth = {};
 
 /**
  * Validations to perform on client. (Also performed on server.)
@@ -15,9 +15,16 @@ const auth = require('../../config/config').validation.auth;
  *
  * These validations are in a different module from the Joi and server validations
  * so that the client can use these without being forced to import Joi.
+ *
+ * .setClientValidationsConfig(config) must be called with either the server or client config before any
+ * validations may be performed.
  */
 
 const clientValidations = {};
+
+clientValidations.setClientValidationsConfig = (config) => {
+  auth = config.validation.auth;
+};
 
 clientValidations.signup = (values /* , props */) => {
   const errors = {};
@@ -110,13 +117,13 @@ function clean(str) {
 }
 
 function checkName(name, errors, fieldName = 'name') {
-  if (!auth.name.re.test(clean(name))) {
+  if (!new RegExp(auth.name.re).test(clean(name))) {
     errors[fieldName] = auth.name.err;
   }
 }
 
 function checkUsername(username, errors, fieldName = 'username') {
-  if (!auth.username.re.test(clean(username))) {
+  if (!new RegExp(auth.username.re).test(clean(username))) {
     errors[fieldName] = auth.username.err;
   }
 }
@@ -127,7 +134,7 @@ function checkEmail(email, errors, fieldName = 'email') {
 
   if (email.length < authEmail.minLen || email.length > authEmail.maxLen) {
     errors[fieldName] = authEmail.errLen;
-  } else if (!authEmail.re.test(email)) {
+  } else if (!new RegExp(authEmail.re).test(email)) {
     errors[fieldName] = authEmail.err;
   }
 }
@@ -145,7 +152,7 @@ function checkConfirmEmail(email, confirmEmail, errors, fieldName = 'confirmEmai
 }
 
 function checkPassword(password, errors, fieldName = 'password') {
-  if (!auth.password.re.test(clean(password))) {
+  if (!new RegExp(auth.password.re).test(clean(password))) {
     errors[fieldName] = auth.password.err;
   }
 }

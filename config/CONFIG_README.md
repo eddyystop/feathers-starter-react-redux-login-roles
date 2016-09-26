@@ -59,3 +59,12 @@ highest priority to lowest.
 - Value set on command line, e.g. `LOG_LEVEL=warn npm start`.
 - Value set for the environment, e.g. `export LOG_LEVEL=warn` for the bash shell in Ubuntu.
 - Value set in the `.env` file.
+
+### Tell me about the configuration the client gets
+
+For now, `client-config.js` contains the *static* config values the client needs.
+It is a manual copy of what the server config resolves to for these values.
+So if you change the server config for any of these values, you also have to change the client config.
+
+Eventually the client will ask the server to pass it the values it needs from the server config.
+The client config at that time can be calculated just as the client one is now.

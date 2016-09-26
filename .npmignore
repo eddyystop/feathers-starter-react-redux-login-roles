@@ -9,3 +9,7 @@ TODO.txt
 coverage/
 # security
 config/local*
+# logs
+logs/
+*.log
+npm-debug.log*

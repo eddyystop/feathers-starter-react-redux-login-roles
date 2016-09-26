@@ -29,16 +29,26 @@
  }
  */
 
+const debug = require('debug')('server:loggerProduction');
+const path = require('path');
 const winston = require('winston');
 const morgan = require('morgan');
-const debug = require('debug')('logger');
+const config = require('config');
 
-const isProduction = (process.env.NODE_ENV || '').indexOf('prod') !== -1;
+debug('Has been required');
+
+const last2 = (numb) => `0${numb}`.slice(-2);
+
+const isProduction = config.isProduction;
 winston.emitErrs = true;
 
 const transports = [
   new winston.transports.Console({
-    level: process.env.LOG_CONSOLE_LEVEL,
+    level: config.logs.logConsoleLevel,
+    timestamp: () => {
+      const date = new Date();
+      return `${last2(date.getHours())}:${last2(date.getMinutes())}:${last2(date.getSeconds())}`;
+    },
     handleExceptions: true,
     json: false,
     colorize: true,
@@ -46,11 +56,12 @@ const transports = [
 ];
 
 if (isProduction) {
+  debug('Add file logger');
   transports.push(
-    // configure the log file
+    // Setup the log file
     new winston.transports.File({
-      level: process.env.LOG_LEVEL,
-      filename: process.env.LOG_FILE,
+      level: config.logs.logLevel,
+      filename: path.join(config.logs.path, config.logs.fileName),
       handleExceptions: true,
       json: true,
       maxsize: 5242880, // 5MB
@@ -61,6 +72,7 @@ if (isProduction) {
   );
 }
 
+debug('Create logger');
 const logger = new winston.Logger({
   transports,
   exitOnError: false,
@@ -73,6 +85,7 @@ logger.stream = {
 };
 
 logger.setLevels = (levels) => {
+  debug(`Set levels ${JSON.stringify(levels)}`);
   if (levels.console) {
     logger.transports.console.level = levels.console;
     debug(`set console logger level to ${levels.console}`);
@@ -84,12 +97,10 @@ logger.setLevels = (levels) => {
 };
 
 logger.setMorgan = () => {
+  debug('Setup HTTP request logging');
   morgan.token('username', (req) => (req.user ? req.user.username || '' : '')); // from middleware
 
-  const terseFormat = '{"method":":method", "url":":url", "status":":status", ' +
-    '"ms":":response-time"}';
-
-  const verboseFormat = [
+  const verboseFormat = [ // eslint-disable-line no-unused-vars
     '{',
     '"method": ":method", "url": ":url", "status": ":status", "res_time": ":response-time", ',
     '"remote_addr": ":remote-addr", "remote_user": ":remote-user", "date": ":date[clf]", ',
@@ -98,8 +109,13 @@ logger.setMorgan = () => {
     '}',
   ].join('');
 
+  const terseFormat =
+    '{"method":":method", "url":":url", "status":":status", "ms":":response-time"}';
+
+  const devFormat = ':method :url (:status) :response-time';
+
   return morgan(
-    isProduction ? terseFormat : 'tiny',
+    isProduction ? terseFormat : devFormat,
     { stream: logger.stream }
   );
 };

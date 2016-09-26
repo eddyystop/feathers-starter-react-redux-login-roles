@@ -3,6 +3,8 @@ const webpack = require('webpack'); // eslint-disable-line import/no-unresolved
 const rucksack = require('rucksack-css');
 const path = require('path');
 
+// ********** Note require('config') is not used here. Any params must be set in process.env *******
+
 module.exports = {
   context: path.join(__dirname, './client'),
   devtool: 'eval', // isProduction ? 'cheap-module-source-map' : 'eval',
@@ -51,8 +53,8 @@ module.exports = {
   },
   postcss: [
     rucksack({
-      autoprefixer: true
-    })
+      autoprefixer: true,
+    }),
   ],
   plugins: [
     // Webpack's default file watcher does not work in Virtual Machines with NFS file systems.
@@ -60,7 +62,7 @@ module.exports = {
     // Define replacements for global constants in the client code.
     new webpack.DefinePlugin({
       'process.env': { NODE_ENV: JSON.stringify(process.env.NODE_ENV) }, // used by React, etc?
-      '__processEnvNODE_ENV__': JSON.stringify(process.env.NODE_ENV), // used by us
+      __processEnvNODE_ENV__: JSON.stringify(process.env.NODE_ENV), // used by us
     }),
   ],
   devServer: {

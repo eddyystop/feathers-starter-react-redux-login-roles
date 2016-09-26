@@ -5,10 +5,10 @@ import React, { Component, PropTypes } from 'react';
 import { Link } from 'react-router';
 import RaisedButton from 'material-ui/RaisedButton';
 
-import configSecurity from '../../../../config/config.security';
+import { config } from '../../../utils/config';
 import style from './style.css';
 
-const email = configSecurity.email;
+const email = config.authEmails;
 
 class TheComponent extends Component {
   componentDidMount() {
@@ -60,21 +60,21 @@ function welcomeMessage(user) {
       <br />
       <h3>Hi {user.name},</h3>
       <p>Thanks for confirming your account.
-        We’re very excited to have you start using {email.productName}.</p>
+        We’re very excited to have you start using {email.subs.productName}.</p>
       <p>To get started, please sign in below:</p>
       <br />
       <RaisedButton label="Sign in." containerElement={<Link to="/user/signin" />} />
       <br />
-      <p>If you did not sign up to {email.productName}, please ignore this email.</p>
-      <p>Thanks,<br />{email.senderName} and the {email.productName} Team</p>
+      <p>If you did not sign up to {email.subs.productName}, please ignore this email.</p>
+      <p>Thanks,<br />{email.subs.senderName} and the {email.subs.productName} Team</p>
       <br />
       <p><strong>P.S.</strong> We also love hearing from you and helping you
         with any issues you have. Please use the email address below if you want
         to ask a question or just say hi.
       </p>
-      <p>&copy; 2016 {email.productName}. All rights reserved.
-        <br />{email.productAddressLine1}
-        <br />{email.productAddressLine2}
+      <p>&copy; {email.subs.copyrightYears} {email.subs.productName}. All rights reserved.
+        <br />{email.subs.productUrl}
+        <br />{email.subs.supportEmail}
       </p>
     </div>
   );

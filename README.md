@@ -1,10 +1,9 @@
 ## feathers-starter-react-redux-login-roles
-Starter package with comprehensive local authentication and roles, plus React-Router authorization.
-Easily use Feathers services with Redux.
+Production ready starter package.
+Local auth, roles; React-Router auth.
+Easily use every Feathers services with Redux.
 
 [![Build Status](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles.svg?branch=master)](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles)
-
-> In progress. This should be working. Changes are being made to harden it for production.
 
 ## <a name="features"></a> Features
 
@@ -16,16 +15,19 @@ Easily use Feathers services with Redux.
 - Feathers DB and custom services are dispatched to Redux for 100% compatibility.
 - Async server verification for the UI, as well as client-side verification.
 - Share UI verification code between client and server.
+- Hierarchical, dynamic app configuration for server and client.
+- Logging from both server and client.
 
 ## <a name="serverContains"></a> Server contains
 
 - [x] [Feathersjs](https://github.com/feathersjs/feathers) with [Express](https://github.com/expressjs).
-- [x] [Feathers-rest](https://github.com/feathersjs/feathers-rest) for use as a REST API.
+- [x] [Feathers-rest](https://github.com/feathersjs/feathers-rest) to implement a REST API.
 - [x] [Feathers-socketio](https://github.com/feathersjs/feathers-socketio) for socket.io transport.
 - [x] [Feathers-service-verify-reset](https://github.com/eddyystop/feathers-service-verify-reset)
 adds email verification, forgotten password reset, etc. to local feathers-authentication.
 - [x] [Feathers-hooks-validate-joi](https://github.com/eddyystop/feathers-hooks-validate-joi)
-schema validation, sanitization and client notification using Joi.
+schema validation, sanitization and client notification using
+[Joi](https://github.com/hapijs/joi).
 - [x] [Dotenv](https://github.com/motdotla/dotenv) loads environment variables from `.env`. (1.8k stars)
 - [x] [Envalid](https://github.com/af/envalid) environment variable validation.
 - [x] [Node-config](https://github.com/lorenwest/node-config) node.js application configuration.
@@ -68,21 +70,21 @@ for Redux and React-Router permissions. (550 stars)
 - [x] [Redux-form](https://github.com/erikras/redux-form)
 to manage form state in Redux (version 6). (3.5k stars)
 - [x] [Redux DevTools Extension](https://github.com/zalmoxisus/redux-devtools-extension),
-like gaearon/redux-devtools but better. (2k stars)
+like redux-devtools but perhaps better. (2k stars)
 - [x] [Material-ui](https://github.com/callemall/material-ui)
 implement Google's Material Design. (19k stars)
 - [x] [Feathers-client](https://github.com/feathersjs/feathers-client) using socket.io.
 - [x] [Feathers-reduxify-services](https://github.com/eddyystop/feathers-reduxify-services)
 wrap Feathers services so they work transparently and perfectly with Redux.
 - [x] [Feathers-reduxify-authentication](https://github.com/eddyystop/feathers-reduxify-authentication)
-wrap feathers-client.authentication so it works with Redux, as well as authentication, authorization packages for React-Router.
+wrap feathers-client.authentication so it works with Redux and React-Router.
 
 ## <a name="clientBuildChain"></a> Client build chain contains
 
 - [x] [Webpack](https://webpack.github.io)
 - [x] [Babel](https://babeljs.io/)
 - [x] [Postcss-modules](https://github.com/css-modules/postcss-modules)
-scope CSS names locally, export a map for rendering React components.
+scope CSS names locally, and export a map for rendering React components.
 (css-modules 4.7k stars)
 - [x] [Autoprefixer](https://github.com/postcss/autoprefixer)
 add vendor prefixes. (10.7k stars)
@@ -111,19 +113,11 @@ Production build:
 
 User authorization features accessible from icon menus on `/user/signin` and `/app`.
 
-## <a name="gettingStarted"></a> [Getting Started.](./doc/GETTING_STARTED.md)
+## <a name="faq"></a> [FAQ.](./doc/FAQ.md)
 
 ## <a name="processExitCodes"></a> [Process Exit Codes.](./doc/PROCESS_EXIT_CODES.md)
 
-## <a name="faq"></a> [FAQ.](./doc/FAQ.md)
-
-## <a name="todo"></a> To Do
-
-- Docs on how to configure the package.
-- Doc on what files do what.
-- DONE. Enhance webpack.config.js to production.
-- Cleanup package.json scripts & for production.
-- DONE. Production build.
+## <a name="httpStatusCodes"></a> [HTTP Status Codes.](./doc/HTTP_STATUS_CODES.md)
 
 ## <a name="contribution"></a> Contributing
 
