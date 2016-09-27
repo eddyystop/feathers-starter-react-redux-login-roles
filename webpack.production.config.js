@@ -42,7 +42,7 @@ const webpackConfig = {
     // This vendor chunk will not reduce network requests, it will likely force a second request
     // each time the main chunk changes. So why separate them?
     /*
-    vendor: [
+    vendor: [ // review these
       'feathers-client',
       'feathers-hooks-common',
       'feathers-reduxify-authentication',

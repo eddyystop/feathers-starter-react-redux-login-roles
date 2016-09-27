@@ -15,13 +15,13 @@
 - [How is the application configuration determined?](#configHow)
 - [Tell me about the configuration values.](#config)
 - [Tell me about configuration values for the client.](#configClient)
-- [Tell me how the config is passed to code common to the server and client.](#configCommon)
+- [Tell me how the config is passed to code common to both the server and client.](#configCommon)
 
 ### Database
 - [Where is the data stored?](#dataWhere)
 
 ### Logging
-- [Tell me about the logger.](#logging)
+- [Tell me about the logger.](#logger)
 - [Tell me about logging from the client.](#loggingClient)
 - [Why do the log entries contain JSON?](#logsJson)
 - [Where are the logs stored?](#logsWhere)
@@ -53,6 +53,8 @@
 
 ## <a name="start"></a> How do you start the server?
 
+`npm install` from root.
+
 With Webpack-dev-server:
 - `npm run build:devserver` on one process to start the webpack-dev-server on port 8080.
 - `npm run start:devserver` to start the server on port 3030.
@@ -69,25 +71,23 @@ Production build:
 - `npm start`.
 - Point browser to `localhost:3030` to start app.
 
-User authorization features accessible from icon menus on `/user/signin` and `/app`.
-
 ## <a name="startGuide"></a> What should I do once the server starts?
 
 - [ ] Point the browser at `localhost:3030`.
-- [ ] You should soon see the sign in screen. ![See.](./images/01-sign-in.JPG)
-- [ ] Click the menu icon; click Sign up. ![See.](./images/02-sign-in-option.JPG)
-- [ ] Create a user. ![See.](./images/03-sign-up.JPG)
+- [ ] You should soon see the sign in screen. [See.](./images/01-sign-in.JPG)
+- [ ] Click the menu icon; click Sign up. [See.](./images/02-sign-in-option.JPG)
+- [ ] Create a user. [See.](./images/03-sign-up.JPG)
 Since this is the first user, it will be assigned admin and superAdmin roles.
 - [ ] The server console will display a placeholder transactional email meant to verify
-the email address you entered. ![See.](./images/04-email.JPG)
+the email address you entered. [See.](./images/04-email.JPG)
 - [ ] Point the browser at the URL in that email.
-- [ ] You should soon be greeted by a welcome screen. ![See.](./images/05-welcome.JPG)
+- [ ] You should soon be greeted by a welcome screen. [See.](./images/05-welcome.JPG)
 Click sign in.
-- [ ] Sign in. ![See.](./images/06-sign-in.JPG)
-- [ ] The root page of the App should soon appear. ![See.](./images/07-app.JPG)
+- [ ] Sign in. [See.](./images/06-sign-in.JPG)
+- [ ] The root page of the App should soon appear. [See.](./images/07-app.JPG)
 - [ ] Point the browser once more at `localhost:3030`.
 - [ ] Your credentials were in localStorage, so you are automatically authenticated.
-- [ ] You should be correctly identified in the log entry on the console. ![See.](./images/08-auto-auth.JPG)
+- [ ] You should be correctly identified in the log entry on the console. [See.](./images/08-auto-auth.JPG)
 - [ ] The root page of the App appears.
 
 Other parts of the local auth UI:
@@ -95,7 +95,7 @@ Other parts of the local auth UI:
 - [ ] Menu icon on sign in page has options for sign up, forgotten password,
 and resending the email address verification email.
 - [ ] Menu icon on main App page has an option for User profile.
-- [ ] Menu icon on User profile page has other options. ![See.](./images/09-profile.JPG) ![See.](./images/10-roles.JPG)
+- [ ] Menu icon on User profile page has other options. [See.](./images/09-profile.JPG) [See.](./images/10-roles.JPG)
 
 Note that only users with an admin role may modify users' roles.
 
@@ -223,7 +223,7 @@ See [feathers-reduxify-services](https://github.com/eddyystop/feathers-reduxify-
 
 ## <a name="feathersAuth"></a> How do I use .authentication() with Redux?
 
-Feathers.authentication is automatically wrapper to be Redux compatible.
+Feathers.authentication is automatically wrapped to be Redux compatible.
 
 You can, for example, try authenticating with the stored JWT:
 
@@ -242,7 +242,7 @@ if (localStorage['feathers-jwt']) {
 
 ## <a name="config"></a> Tell me about the configuration values.
 
-`/config/default.js` and `.env` are well commented.
+`/config/default.js` and `.env` are well documented.
 
 The server configuration is frozen with `Object.freeze()`
 after being calculated because of security considerations.
@@ -256,7 +256,7 @@ The client loads the configuration on start up using Feathers service `/config`.
 The configuration is then frozen with `Object.freeze()`
 because of security considerations.
 
-## <a name="configCommon"></a> Tell me how the config is passed to code common to the server and client.
+## <a name="configCommon"></a> Tell me how the config is passed to code common to both the server and client.
 
 I wish we did something clever, but we don't.
 
@@ -273,12 +273,12 @@ Lemme know if you have a better idea.
 Production files are in `/data`.
 Development and devserver files are in `/data-dev`.
 
-This allows you to switch between test and production quality by changinf NODE_ENV.
+This allows you to switch between test and production quality when you change NODE_ENV.
 *Be careful* should your production files be the actual live ones.
 
 ==================
 
-## <a name="logging"></a> Tell me about the logger.
+## <a name="logger"></a> Tell me about the logger.
 
 The logger uses [Winston](https://github.com/winstonjs/winston) and
 [Morgan](https://github.com/expressjs/morgan).
@@ -286,7 +286,7 @@ It logs to both a log file and the console in production mode,
 the console only in development.
 You can control the severity of the entries logged with LOG_LEVEL and LOG_CONSOLE_LEVEL.
 
-You can configure the logger in `server/utils/loggerProduction.js`.
+You can customise the logger in `server/utils/loggerProduction.js`.
 
 ## <a name="loggingClient"></a> Tell me about logging from the client.
 
@@ -299,7 +299,7 @@ import { logger } from '/client/utils/loggerRedux';
 logger('info', 'Agent connected', { data: {...} });
 ```
 
-Each device is identified by a 30 char slug in `localStorage.deviceId`.
+Each agent device is identified by a 30 char slug in `localStorage.deviceId`.
 This is added to the log along with the authenticated user's email and username,
 if there is an authenticated user.
 
@@ -319,7 +319,7 @@ Development and devserver log files are in `/log-dev`.
 You won't typically find any files there though as the dev modes do not write log files,
 they log only onto the console.
 
-You can made dev modes write files in `/log-dev` by change `server/utils/loggerProduction`
+You can made dev modes write files in `/log-dev` by changing `server/utils/loggerProduction`
 from `if (isProduction)` to `if (true)`.
 
 ## <a name="logsFmt"></a> How are the log files formatted?
@@ -365,7 +365,7 @@ users: { email, username }
 
 ## <a name="debug"></a> How do you enable `debug` logging?
 
-An environment variable is used to enable the `debug` logs based on space or comma-delimited names.
+A variable is used to enable the `debug` logs based on space or comma-delimited names.
 - On the server you use the DEBUG environment variable `DEBUG=verify* npm start`.
 - On the client run `localStorage.debug = 'reducer*,verify*';`
 on the console and then restart the client.
@@ -393,8 +393,7 @@ Meanwhile a beta version of v4, a complete conceptual redesign, is also out.
 
 The amount of churn is React-Router is [well known](https://news.ycombinator.com/item?id=12511419).
 
-We have decided to remain on v2 for now. Later switching to v3,
-which the devs say will continue to be maintained.
+We have decided to remain on v2 for now.
 As developers writing practical software, we need some project stability.
 
 ## <a name="reduxDevTool"></a> Why you using a replacement for [Redux DevTools](https://github.com/gaearon/redux-devtools)?
@@ -413,8 +412,8 @@ You don't have to import and render Redux-devtools-dock-monitor and Redux-devtoo
 but not both simultaneously.
 - You can use it with isomorphic (universal) apps.
 - You can use it with React Native, hybrid, desktop and server side Redux apps.
-- You simplify your webpack.config and avoid at least one obscure Redux-DevTool bug,
-see http://stackoverflow.com/questions/28519287/what-does-only-a-reactowner-can-have-refs-mean/32444088#32444088
+- You simplify your webpack.config and avoid at least one obscure Redux-DevTool bug.
+[See here.](http://stackoverflow.com/questions/28519287/what-does-only-a-reactowner-can-have-refs-mean/32444088#32444088)
 
 You can change `client/store.js` and `client/router/index.js` to use
 [Redux DevTools](https://github.com/gaearon/redux-devtools)
@@ -436,11 +435,10 @@ and his
 [React Transform Boilerplate](https://github.com/gaearon/react-transform-boilerplate)
 should be used instead.
 However that project has been _deprecated_.
-
 React Hot Loader v3 is on the horizon and will fix some long-standing issues with both.
-So we are waiting on on it.
 
-_There may already be commented out code to include React Hot Loader._ Include your own if not.
+There may already be code to include React Hot Loader.
+Include your own if not.
 
 https://medium.com/@rajaraodv/webpacks-hmr-react-hot-loader-the-missing-manual-232336dc0d96#.nulsvwntw
 
@@ -490,8 +488,8 @@ Chunks are still useful for dynamically loaded code.
 The app can load infrequently used chunks only when they are needed.
 It saves initial parsing time and may make the first page appear faster.
 
-Webpack is undergoing a rewrite and this will hopefully be fixed.
-However we'll also have to wait till every Webpack plugin is rewritten.
+Webpack is undergoing a rewrite and the issue with chunk hash values will hopefully be fixed.
+However we'll also have to wait till many Webpack plugins are rewritten before we use Webpack 2.
 
 ## <a name="webpackChunksBuild"></a> How can I build and use chunks anyway?
 
@@ -501,16 +499,15 @@ If you want webpack to build chunks and have them all loaded through HTML,
 then uncomment the lines dealing with chunks in `webpack.production.config.js`.
 
 `HtmlWebpackPlugin` will insert the chunks into the HTML it generates.
-However *do not* uncomment the `excludeChunks: ['user']`.
+However *do not* uncomment the `excludeChunks: ['user']` in `HtmlWebpackPlugin`.
 
 ### Also dynamic loading
 
-The `user` chunk does not include the Signin screen,
-and the other user screens should be used often.
-There is an argument that perhaps the `user` chunk should be loaded dynamically,
-only when needed.
+The `user` chunk does not include the Sign in screen,
+and the other user screens should not be used often.
+There is some argument that perhaps the `user` chunk should be loaded dynamically.
 However the `user` chunk is small and you can argue the extra complexity of dynamic loading
-is not worth the small improvement of displaying the first page.
+is not worth the small improvement in displaying the first page.
 
 You can enable dynamic loading by:
 - Uncomment `excludeChunks: ['user']` in the webpack config
@@ -530,9 +527,9 @@ as shown in the commented out code.
 
 ==================
 
-## <a name="processExitCodes"></a> [Process Exit Codes.](./doc/PROCESS_EXIT_CODES.md)
+## <a name="processExitCodes"></a> [Process Exit Codes.](./PROCESS_EXIT_CODES.md)
 
-## <a name="httpStatusCodes"></a> [HTTP Status Codes.](./doc/HTTP_STATUS_CODES.md)
+## <a name="httpStatusCodes"></a> [HTTP Status Codes.](./HTTP_STATUS_CODES.md)
 
 ==================
 

@@ -52,7 +52,7 @@ configLoad(store, feathersServices)
 
     router(store, history);
   })
-  .catch(err => console.log('configLoad', err));
+  .catch(err => console.log('configLoad', err)); // eslint-disable-line no-console
 
 // Handle uncaught exceptions
 function setupOnUncaughtExceptions() { // eslint-disable-line no-unused-vars
