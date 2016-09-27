@@ -1,7 +1,13 @@
 ## feathers-starter-react-redux-login-roles
 Production ready starter package.
 Local auth, roles; React-Router auth.
-Easily use every Feathers services with Redux.
+Easily use Feathers services with Redux.
+
+> The goal is to support a 100% integration of Feathers and Redux,
+within production quality boilerplate,
+so you can focus on your app development.
+A local auth UI is provided for use,
+and as a working example of Feathers + Redux integration.
 
 [![Build Status](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles.svg?branch=master)](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles)
 
@@ -100,6 +106,8 @@ A complete, working project on which you can build your own Feathers, React, Red
 The project contains comprehensive local authentication and authorization including user roles.
 
 ## <a name="running"></a> Running the starter package
+
+`npm install` from root.
 
 With Webpack-dev-server:
 - `npm run build:devserver` on one process to start the webpack-dev-server on port 8080.

@@ -2,7 +2,7 @@
 /* eslint no-console: 0 */
 
 const debug = require('debug')('server:index');
-const environmentalVariablesValidation = require('./validations/environmentalVariablesValidation');
+const environmentVariablesValidation = require('./validations/environmentVariablesValidation');
 
 // Load environment variables.
 debug('Load environment variables');
@@ -10,7 +10,7 @@ require('dotenv').config({ silent: true });
 
 // Validate & sanitize env vars. (We need a sanitized NODE_ENV before we can do anything else.)
 debug('Sanitize env vars');
-const [envErrs, env] = environmentalVariablesValidation();
+const [envErrs, env] = environmentVariablesValidation();
 
 // Load the app configuration, now that we have a valid NODE_ENV
 debug('Load app config');

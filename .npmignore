@@ -1,8 +1,27 @@
 # npm will use .gitignore if .npmignore does not exist. we don't want this.
-# npm modules
-node_modules/
+
+### Specific to repo, DELETE THIS SECTION after you fork ###
+
+# data folders
+data/
+data-dev/
+# log folders
+logs/
+logs-dev/
+# builds
+public/dist/
+
+### Specific to repo, UNCOMMENT THESE after you fork ###
+
 # environmental variables
 #.env
+# configuration
+#config/local*
+
+### General ###
+
+# npm modules
+node_modules/
 # to do
 TODO.txt
 # coverage report
@@ -10,6 +29,5 @@ coverage/
 # security
 config/local*
 # logs
-logs/
 *.log
 npm-debug.log*

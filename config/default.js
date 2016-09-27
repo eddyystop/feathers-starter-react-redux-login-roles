@@ -97,7 +97,7 @@ module.exports = {
   validation: { // you need to make Joi changes in server/validations/schemas also.
     auth: {
       name: {
-        re: "^[\sa-zA-Z]{8,30}$", // regex cannot be encoded in JSON
+        re: "^[\\sa-zA-Z]{8,30}$", // regex cannot be encoded in JSON
         err: 'Name must be 8 or more letters or spaces.',
       },
       username: {
@@ -105,12 +105,12 @@ module.exports = {
         err: 'Username must be 5 or more letters and numbers.',
       },
       password: {
-        re: "^[\sa-zA-Z0-9]{8,30}$",
+        re: "^[\\sa-zA-Z0-9]{8,30}$",
         err: 'Password must be 8 or more letters, numbers and embedded blanks.',
       },
       email: {
         // http://stackoverflow.com/questions/46155/validate-email-address-in-javascript
-        re: "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", // eslint-disable-line max-len
+        re: "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", // eslint-disable-line max-len
         err: 'Email is invalid.',
         minLen: 8,
         maxLen: 30,

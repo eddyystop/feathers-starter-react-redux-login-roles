@@ -3,17 +3,26 @@
 
 ### Getting started
 - [How do you start the server?](#start)
-- [How is the application configuration determined?](#configHow)
-- [Tell me about the configuration values.](#config) To do.
+- [What should I do once the server starts?](#startGuide)
 
 ### Feathers and Redux
 - [How compatible are Feathersjs services with Redux?](#feathersRedux)
-- [How do I dispatch Feathers services?)(#feathersDispatch)
+- [Where are my action creators and reducers?](#reduxReducers)
+- [How do I dispatch Feathers services?](#feathersDispatch)
 - [How do I use .authentication() with Redux?](#feathersAuth)
 
-### Storage
+### Configuration
+- [How is the application configuration determined?](#configHow)
+- [Tell me about the configuration values.](#config)
+- [Tell me about configuration values for the client.](#configClient)
+- [Tell me how the config is passed to code common to the server and client.](#configCommon)
+
+### Database
 - [Where is the data stored?](#dataWhere)
+
+### Logging
 - [Tell me about the logger.](#logging)
+- [Tell me about logging from the client.](#loggingClient)
 - [Why do the log entries contain JSON?](#logsJson)
 - [Where are the logs stored?](#logsWhere)
 - [How are the log files formatted?](#logsFmt)
@@ -62,19 +71,40 @@ Production build:
 
 User authorization features accessible from icon menus on `/user/signin` and `/app`.
 
-## <a name="configHow"></a> [How is the application configuration determined?](../config/CONFIG_README.md)?
+## <a name="startGuide"></a> What should I do once the server starts?
 
-## <a name="config"></a> Tell me about the configuration values.
+- [ ] Point the browser at `localhost:3030`.
+- [ ] You should soon see the sign in screen. ![See.](./images/01-sign-in.JPG)
+- [ ] Click the menu icon; click Sign up. ![See.](./images/02-sign-in-option.JPG)
+- [ ] Create a user. ![See.](./images/03-sign-up.JPG)
+Since this is the first user, it will be assigned admin and superAdmin roles.
+- [ ] The server console will display a placeholder transactional email meant to verify
+the email address you entered. ![See.](./images/04-email.JPG)
+- [ ] Point the browser at the URL in that email.
+- [ ] You should soon be greeted by a welcome screen. ![See.](./images/05-welcome.JPG)
+Click sign in.
+- [ ] Sign in. ![See.](./images/06-sign-in.JPG)
+- [ ] The root page of the App should soon appear. ![See.](./images/07-app.JPG)
+- [ ] Point the browser once more at `localhost:3030`.
+- [ ] Your credentials were in localStorage, so you are automatically authenticated.
+- [ ] You should be correctly identified in the log entry on the console. ![See.](./images/08-auto-auth.JPG)
+- [ ] The root page of the App appears.
 
-`/config/default.js` is commented.
-Its enough to get you started.
+Other parts of the local auth UI:
+
+- [ ] Menu icon on sign in page has options for sign up, forgotten password,
+and resending the email address verification email.
+- [ ] Menu icon on main App page has an option for User profile.
+- [ ] Menu icon on User profile page has other options. ![See.](./images/09-profile.JPG) ![See.](./images/10-roles.JPG)
+
+Note that only users with an admin role may modify users' roles.
 
 ==================
 
 ## <a name="feathersRedux"></a> How compatible are Feathersjs services with Redux?
 
 Feathers services are wrapped to be 100% compatible with Redux.
-The wrapper API is identical to that of the unwrapped Feathers service API,
+The Redux action creator API is identical to that of the unwrapped Feathers service API,
 so there is no learning curve.
 
 ```javascript
@@ -86,20 +116,56 @@ dispatch(feathersServices.users.create(values))
 ```
 
 Redux constants, actions, and reducers are internally generated.
-You however will never deal with them as they are abstracted away within the wrapper.
-
-A slice of state is allocated for each service and you may use it like any other state.
+A slice of state is allocated for each service and you may use it like any other Redux state.
 
 ```javascript
+// Feathers service users
 rootState.users = {
-    isError: String|null,
-    isLoading: Boolean,
-    isSaving: Boolean,
+    isLoading: Boolean, // pending get, find
+    isSaving: Boolean, // pending other methods
     isFinished: Boolean,
-    data: Object|null,
-    queryResult: Object|null
+    queryResult: Object|null, // results of find
+    data: Object|null, // results of other methods
+    isError: Error|String|null, // why rejected
 };
 ```
+
+## <a name="reduxReducers"></a> Where are my action creators and reducers?
+
+Action creators and reducers are dynamically created for Feathers services.
+You don't see them in the folder structure because they are not code stored in files.
+
+Here's how you create and use them:
+
+```javascript
+// List your Feathers services in /client/feathers/feathersServices.js
+export const mapServicePathsToNames = {
+  users: 'users',
+  '/verifyReset/:action/:value': 'verifyReset', // Feathers path : name we'll use with Redux
+};
+
+// /client/feathers/index.js is coded to create the action creators and reducers for you
+import reduxifyServices from 'feathers-reduxify-services';
+export const feathersServices = reduxifyServices(app, mapServicePathsToNames);
+
+// Add the reducers to Redux in /client/reducers.js
+import { feathersServices, feathersAuthentication } from '/client/feathers';
+export default {
+  routing: routerReducer,
+  auth: feathersAuthentication.reducer, // feathers-client.authenticated() is also Reduxified
+  users: feathersServices.users.reducer,
+  verifyReset: feathersServices.verifyReset.reducer,
+};
+
+// Dispatch using the action creators. Also find, get, update, patch, and remove.
+import { feathersServices } from '/client/feathers';
+const values = { email: 'JohnDoe@gmail00.com', password: '1234567890' };
+dispatch(feathersServices.users.create(values)) // Same arguments as Feathers' create method.
+    .then(() => {}) // method call successful
+    .catch(err => {}); // method call rejected
+```
+
+Simple, huh?
 
 ## <a name="feathersDispatch"></a> How do I dispatch Feathers services?
 
@@ -108,7 +174,7 @@ rootState.users = {
 - Add your service name to `/client/feathers/feathersServices.js`
 - Add your service name to `/client/reducers.js`.
 - Add `import { feathersServices } from '/client/feathers';` to your module.
-- You can now run `dispatch(feathersServices.users.create(...)).then(...)'`
+- You can now run `dispatch(feathersServices.users.create(...)).then(...)`.
 - As well as `find`, `get`, `update`, `patch` and `remove`.
 
 Redux actions will be dispatched for `pending`, `successful` and `rejected` as needed.
@@ -129,7 +195,6 @@ dispatch(feathersServices.users.create(values))
         `It is valid for the next ${config.authEmails.expires.signUpEmailTokenTimeValidText}.`
       );
       dispatch(push('/user/signin'));
-      resolve();
     });
 ```
 
@@ -173,6 +238,36 @@ if (localStorage['feathers-jwt']) {
 
 ==================
 
+## <a name="configHow"></a> [How is the application configuration determined?](../config/CONFIG_README.md)?
+
+## <a name="config"></a> Tell me about the configuration values.
+
+`/config/default.js` and `.env` are well commented.
+
+The server configuration is frozen with `Object.freeze()`
+after being calculated because of security considerations.
+
+## <a name="configClient"></a> Tell me about configuration values for the client.
+
+The configuration includes a section which identifies which parts of the complete configuration
+is sent to a client when it starts up.
+
+The client loads the configuration on start up using Feathers service `/config`.
+The configuration is then frozen with `Object.freeze()`
+because of security considerations.
+
+## <a name="configCommon"></a> Tell me how the config is passed to code common to the server and client.
+
+I wish we did something clever, but we don't.
+
+`/server/index.js` and `/client/index.js` call each common module passing the correct config.
+The module is expected to retain a reference to the config.
+You will have to add to these calls for your own common code.
+
+Lemme know if you have a better idea.
+
+==================
+
 ## <a name="dataWhere"></a> Where is the data stored?
 
 Production files are in `/data`.
@@ -181,17 +276,36 @@ Development and devserver files are in `/data-dev`.
 This allows you to switch between test and production quality by changinf NODE_ENV.
 *Be careful* should your production files be the actual live ones.
 
+==================
+
 ## <a name="logging"></a> Tell me about the logger.
 
 The logger uses [Winston](https://github.com/winstonjs/winston) and
 [Morgan](https://github.com/expressjs/morgan).
-It logs to both a log file and the console in production mode, the console only in development.
+It logs to both a log file and the console in production mode,
+the console only in development.
 You can control the severity of the entries logged with LOG_LEVEL and LOG_CONSOLE_LEVEL.
 
 You can configure the logger in `server/utils/loggerProduction.js`.
 
-Note that the logger is set up before the environment variables are validated and sanitized.
-NODE_ENV must contain the char fragment 'prod' for production mode.
+## <a name="loggingClient"></a> Tell me about logging from the client.
+
+The client can write log entries to the server's log file and console
+using the Feathers service `/logs`.
+A convenience wrapper makes it particularly easy to write logs from any place.
+
+```javascript
+import { logger } from '/client/utils/loggerRedux';
+logger('info', 'Agent connected', { data: {...} });
+```
+
+Each device is identified by a 30 char slug in `localStorage.deviceId`.
+This is added to the log along with the authenticated user's email and username,
+if there is an authenticated user.
+
+In summary the following is added to client log entries:
+`deviceId: '...', user: { email, username }, tags: 'client'`.
+
 
 ## <a name="logsJson"></a> Why do the log entries contain JSON?
 

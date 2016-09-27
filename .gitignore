@@ -1,15 +1,30 @@
 
-### Specific to project ##########
+### Specific to repo, DELETE THIS SECTION after you fork ###
+
+# data folders
+data/
+data-dev/
+# log folders
+logs/
+logs-dev/
+# builds
+public/dist/
+
+### Specific to repo, UNCOMMENT THESE after you fork ###
 
 # environmental variables
 #.env
+# configuration
+#config/local*
+
+### Specific to project ##########
+
 # build
 lib/
 # checklists
 docs-secure/
 # Authentication information
 *.secure.js
-#config/local*
 
 ### Standard .gitignore ##########
 
@@ -44,7 +59,6 @@ tmp/
 unused/
 
 ## Logs
-logs/
 *.log
 npm-debug.log*
 
