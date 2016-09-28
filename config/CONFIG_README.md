@@ -50,7 +50,7 @@ should be extracted from the code into environment variables.
 But it is not always practical to set environment variables on development machines or
 continuous integration servers where multiple projects are run.
 [Dotenv](https://github.com/bkeepers/dotenv)
-is used to load variables from a `.env` file into Eenvironment variables
+is used to load variables from a `.env` file into environment variables
 when the environment is bootstrapped.
 
 The final environment variable values are determined as follow,
@@ -60,11 +60,4 @@ highest priority to lowest.
 - Value set for the environment, e.g. `export LOG_LEVEL=warn` for the bash shell in Ubuntu.
 - Value set in the `.env` file.
 
-### Tell me about the configuration the client gets
-
-For now, `client-config.js` contains the *static* config values the client needs.
-It is a manual copy of what the server config resolves to for these values.
-So if you change the server config for any of these values, you also have to change the client config.
-
-Eventually the client will ask the server to pass it the values it needs from the server config.
-The client config at that time can be calculated just as the client one is now.
+### [Tell me about the configuration the client gets](../doc/FAQ.md#-tell-me-about-configuration-values-for-the-client)

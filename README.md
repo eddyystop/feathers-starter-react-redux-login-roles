@@ -123,6 +123,8 @@ User authorization features accessible from icon menus on `/user/signin` and `/a
 
 ## <a name="faq"></a> [FAQ.](./doc/FAQ.md)
 
+## <a name="customization"></a> [Customization of boilerplate.](./doc/CUSTOMIZATION.md)
+
 ## <a name="processExitCodes"></a> [Process Exit Codes.](./doc/PROCESS_EXIT_CODES.md)
 
 ## <a name="httpStatusCodes"></a> [HTTP Status Codes.](./doc/HTTP_STATUS_CODES.md)

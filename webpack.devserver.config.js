@@ -7,7 +7,7 @@ const path = require('path');
 
 module.exports = {
   context: path.join(__dirname, './client'),
-  devtool: 'eval', // isProduction ? 'cheap-module-source-map' : 'eval',
+  devtool: 'inline-source-map',
   entry: './index.js',
   output: {
     path: path.join(__dirname, './public/dist'),

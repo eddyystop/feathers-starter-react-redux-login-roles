@@ -1,4 +1,9 @@
 
+## Suggestions for development
+
+- [Dealing with class names in React.](#reactClass)
+- [`shouldComponentUpdate` without immutables.](reactShouldUpdateSimple)
+
 ## <a name="reactClass"></a> Dealing with class names in React.
 
 Your styles are in `./style.css` files.

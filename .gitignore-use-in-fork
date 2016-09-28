@@ -1,14 +1,12 @@
 
-### Specific to repo, do not use for fork ###
+### Specific to project ##########
 
-# data folders
-data/
-data-dev/
-# log folders
-logs/
-logs-dev/
-# builds
-public/dist/
+### Specific to boilerplate, use in fork ##########
+
+# environmental variables - decide if you want to commit the file
+#.env
+# configuration
+config/local*
 
 ### Standard .gitignore ##########
 

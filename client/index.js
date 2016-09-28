@@ -51,8 +51,8 @@ configLoad(store, feathersServices)
     const router = require('./router').default; // eslint-disable-line global-require
 
     router(store, history);
-  })
-  .catch(err => console.log('configLoad', err)); // eslint-disable-line no-console
+  });
+  // you cannot place a catch here because of the require inside then()
 
 // Handle uncaught exceptions
 function setupOnUncaughtExceptions() { // eslint-disable-line no-unused-vars

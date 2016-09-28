@@ -33,7 +33,8 @@ console.log(`----- ${config.NODE_ENV.toUpperCase()} build.`); // eslint-disable-
 // Base Webpack configuration
 const webpackConfig = {
   context: path.join(__dirname, 'client'),
-  devtool: 'eval', // isProduction ? 'cheap-module-source-map' : 'eval',
+  // re devtool: http://cheng.logdown.com/posts/2016/03/25/679045
+  devtool: isProduction ? 'cheap-module-source-map' : 'source-map',
   entry: {
     main: ['./index.js'],
     // Webpack cannot produce chunks with a stable chunk hash as of June 2016,
@@ -190,8 +191,8 @@ const webpackConfig = {
         loader: 'style!css',
       },
       {
-        test: /\.(js|jsx)$/,
-        exclude: /node_modules/,
+        test: /\.(js|jsx)$/, // does anyone still use .jsx?
+        exclude: /(node_modules|bower_components)/,
         loaders: [
           /*
           'react-hot',
@@ -219,23 +220,23 @@ const webpackConfig = {
        minification route as the DefinePlugin and UglifyJsPlugin below will minimize the
        packages as per React's npm documentation.
 
-       You may get an apparently benign warning message by including the 'react$' alias.
-       I'm commenting the line out mainly because yellow warning text bothers me.
-
        You should however leave the 'react' alias enabled if you are using Redux-DevTools
        (instead of Redux-DevTools-extension). That alias will sidestep a peculiar packaging bug,
        see http://stackoverflow.com/questions/28519287/what-does-only-a-reactowner-can-have-refs-mean/32444088#32444088
-       */
-      //'react$': path.join(__dirname, 'node_modules', 'react','dist',
-      // (isProduction ? 'react.min.js' : 'react.js')),
-      react: path.join(__dirname, 'node_modules', 'react'), // !!! IMPORTANT for Redux-DevTools
-      'react-dom$': path.join(__dirname, 'node_modules', 'react-dom','dist',
-       (isProduction ? 'react-dom.min.js' : 'react-dom.js')),
-      redux$: path.join(__dirname, 'node_modules', 'redux', 'dist',
-        (isProduction ? 'redux.min.js' : 'redux.js')),
-      'react-redux$': path.join(__dirname, 'node_modules', 'react-redux', 'dist',
-        (isProduction ? 'react-redux.min.js' : 'react-redux.js')),
 
+       After all this, we decided minify the npm source as that seems the more common approach.
+       More info will be available on edge case, failure modes and workarounds.
+
+       'react$': path.join(__dirname, 'node_modules', 'react','dist',
+        (isProduction ? 'react.min.js' : 'react.js')),
+       react: path.join(__dirname, 'node_modules', 'react'), // !!! IMPORTANT for Redux-DevTools
+       'react-dom$': path.join(__dirname, 'node_modules', 'react-dom','dist',
+         (isProduction ? 'react-dom.min.js' : 'react-dom.js')),
+       redux$: path.join(__dirname, 'node_modules', 'redux', 'dist',
+         (isProduction ? 'redux.min.js' : 'redux.js')),
+       'react-redux$': path.join(__dirname, 'node_modules', 'react-redux', 'dist',
+         (isProduction ? 'react-redux.min.js' : 'react-redux.js')),
+       */
     },
   },
   postcss: [
@@ -288,7 +289,7 @@ const webpackConfig = {
     }),
     // Define replacements for global constants in the client code.
     new webpack.DefinePlugin({
-      'process.env': { NODE_ENV: JSON.stringify(config.NODE_ENV) }, // used by React, etc?
+      'process.env': { NODE_ENV: JSON.stringify(config.NODE_ENV) }, // used by React, etc
       __processEnvNODE_ENV__: JSON.stringify(config.NODE_ENV), // used by us
     }),
     /* We'd need this if we had a vendor chunk
@@ -305,13 +306,13 @@ const webpackConfig = {
   /* Trying to get a stable chunk hash
    recordsPath: path.join(__dirname, 'webpack.records.json'),
    */
+  /*
   devServer: {
-    contentBase: './client',
+    contentBase: './public',
     // Sometimes placing the inline & hot options here does not work. Best to include them in CLI.
-    /*
     hot: true
-    */
   },
+  */
 };
 
 // Production customization
@@ -513,3 +514,40 @@ build with dll
  user.bundle.0f13a46c5f30ec4a2ea2.js   4.6 MB       1  [emitted]  user
  index.html  1.02 kB          [emitted]
  */
+
+// interesting stuff
+// github.com/gaearon/react-hot-boilerplate/pull/61 BerndWessels Jun 14
+
+/*
+{
+  // ASSET FONT LOADER
+  // Reference: https://github.com/webpack/file-loader
+  // Copy png, jpg, jpeg, gif, svg, woff, woff2, ttf, eot files to output
+  // Rename the file using the asset hash
+  // Pass along the updated reference to your code
+  // You can add here any file extension you want to get copied to your output
+  test: /\.(svg|woff|woff2|ttf|eot)$/,
+    loader: 'file?name=assets/fonts/[name].[hash].[ext]'
+}, {
+  // ASSET IMAGE LOADER
+  // Reference: https://github.com/webpack/file-loader
+  // Copy png, jpg, jpeg, gif, svg, woff, woff2, ttf, eot files to output
+  // Rename the file using the asset hash
+  // Pass along the updated reference to your code
+  // You can add here any file extension you want to get copied to your output
+  test: /\.(png|jpg|jpeg|gif)$/,
+    loader: 'file?name=assets/images/[name].[hash].[ext]'
+}, {
+  // HTML LOADER
+  // Reference: https://github.com/webpack/raw-loader
+  // Allow loading html through js
+  test: /\.html$/,
+    loader: 'html'
+}, {
+  // JSON LOADER
+  // Reference: https://github.com/webpack/json-loader
+  // Allow loading JSON
+  test: /\.json$/,
+    loader: 'json'
+}
+*/

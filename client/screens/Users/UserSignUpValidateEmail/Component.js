@@ -65,7 +65,6 @@ function welcomeMessage(user) {
       <br />
       <RaisedButton label="Sign in." containerElement={<Link to="/user/signin" />} />
       <br />
-      <p>If you did not sign up to {email.subs.productName}, please ignore this email.</p>
       <p>Thanks,<br />{email.subs.senderName} and the {email.subs.productName} Team</p>
       <br />
       <p><strong>P.S.</strong> We also love hearing from you and helping you

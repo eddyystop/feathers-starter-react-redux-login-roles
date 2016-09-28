@@ -1,6 +1,8 @@
 # npm will use .gitignore if .npmignore does not exist. we don't want this.
 
-### Specific to repo, do not use for fork ###
+### Specific to project ##########
+
+### Specific to boilerplate, use in fork ##########
 
 # data folders
 data/
@@ -11,16 +13,17 @@ logs-dev/
 # builds
 public/dist/
 
+# environmental variables - decide if you want to commit the file
+#.env
+# configuration
+config/local*
+
 ### General ###
 
 # npm modules
 node_modules/
-# to do
-TODO.txt
 # coverage report
 coverage/
-# security
-config/local*
 # logs
 *.log
 npm-debug.log*

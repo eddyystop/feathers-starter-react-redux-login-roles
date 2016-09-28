@@ -6,7 +6,7 @@
 - [What should I do once the server starts?](#startGuide)
 
 ### Feathers and Redux
-- [How compatible are Feathersjs services with Redux?](#feathersRedux)
+- [How compatible are Feathersjs client services with Redux?](#feathersRedux)
 - [Where are my action creators and reducers?](#reduxReducers)
 - [How do I dispatch Feathers services?](#feathersDispatch)
 - [How do I use .authentication() with Redux?](#feathersAuth)
@@ -101,7 +101,7 @@ Note that only users with an admin role may modify users' roles.
 
 ==================
 
-## <a name="feathersRedux"></a> How compatible are Feathersjs services with Redux?
+## <a name="feathersRedux"></a> How compatible are Feathersjs client services with Redux?
 
 Feathers services are wrapped to be 100% compatible with Redux.
 The Redux action creator API is identical to that of the unwrapped Feathers service API,
@@ -299,11 +299,11 @@ import { logger } from '/client/utils/loggerRedux';
 logger('info', 'Agent connected', { data: {...} });
 ```
 
-Each agent device is identified by a 30 char slug in `localStorage.deviceId`.
-This is added to the log along with the authenticated user's email and username,
+Each agent device is identified by a 30 char slug stored in `localStorage.deviceId`.
+This is added to the log's JSON along with the authenticated user's email and username,
 if there is an authenticated user.
 
-In summary the following is added to client log entries:
+In summary the following can be added to client log entries:
 `deviceId: '...', user: { email, username }, tags: 'client'`.
 
 
@@ -430,15 +430,24 @@ In any case this message is just an informatory message and no cause for concern
 
 We've used React Hot Loader.
 Its author says it
-[has problems](https://medium.com/@dan_abramov/the-death-of-react-hot-loader-765fa791d7c4#.er68udy3b)
+[has](https://medium.com/@dan_abramov/the-death-of-react-hot-loader-765fa791d7c4#.er68udy3b)
+[problems](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf#.pfig96f7o)
 and his
 [React Transform Boilerplate](https://github.com/gaearon/react-transform-boilerplate)
 should be used instead.
 However that project has been _deprecated_.
+
 React Hot Loader v3 is on the horizon and will fix some long-standing issues with both.
+[It seems to still have teething pains.](https://github.com/gaearon/react-hot-boilerplate/pull/61)
 
 There may already be code to include React Hot Loader.
 Include your own if not.
+
+Suggested alternatives to hmr:
+
+
+
+Using hmr:
 
 https://medium.com/@rajaraodv/webpacks-hmr-react-hot-loader-the-missing-manual-232336dc0d96#.nulsvwntw
 

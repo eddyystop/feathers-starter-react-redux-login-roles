@@ -36,6 +36,12 @@ DONE - work on scripts in package.json
 DONE - debugs should be all debug or isomorphic-debug
 DONE - finalize debug() on all server code
 DONE - upgrade to redux-promise-middleware v4.
+DONE - Enhance webpack.config.js to production.
+DONE - Production build.
+DONE - more docs
+DONE - doc webpack.config
+DONE - FAQ to list alternative code commented out.
+By type of change, list modules whose code needs to be uncommented. "Supersize me"?
 
 NO - ? reducer.plugin to remove passwords in forms (no need)
 NO - be able to log ourselves when middleware errors.
@@ -44,14 +50,11 @@ NO - /middleware/logger should it log? that logger removed
 
 - Docs on how to configure the package.
 - Doc on what files do what.
-- DONE. Enhance webpack.config.js to production.
 - Cleanup package.json scripts & for production.
-- DONE. Production build.
 - hot-loader
 - HTTPS
-DONE - more docs
+
 - sample tests
-DONE - doc webpack.config ,=====================
 
 - https https://news.ycombinator.com/item?id=12574510
 - wanna do some HTTP2? https://medium.com/@imjacobclark/http-2-with-node-js-85da17322812#.91d0vhksz
@@ -65,8 +68,6 @@ DONE - doc webpack.config ,=====================
 
 Documentation
 - doc usage from readme in feathers-service-verify-reset src
-DONE - FAQ to list alternative code commented out.
-By type of change, list modules whose code needs to be uncommented. "Supersize me"?
 
 Maybes
 - decent sample emails, like the verify email one.
@@ -78,3 +79,12 @@ Potential enhancements
 - validation/sanitization callback for verifyRest routes?
 - ? implement https://medium.freecodecamp.com/internationalization-in-react-7264738274a0#.80b6wylrg
 - ? service for user verification so feathers-client not needed at all. would enable HTTP clinets.
+
+
+https://webpack.github.io/docs/hot-module-replacement-with-webpack.html
+https://github.com/glenjamin/webpack-hot-middleware
+http://matthewlehner.net/react-hot-module-replacement-with-webpack/
+http://matthewlehner.net/react-hot-module-replacement-with-webpack/  <---
+http://andrewhfarmer.com/webpack-hmr-tutorial/
+https://robots.thoughtbot.com/setting-up-webpack-for-react-and-hot-module-replacement
+
