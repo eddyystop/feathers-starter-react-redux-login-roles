@@ -126,7 +126,7 @@ const makeBarButtons = (screen) => {
             primaryText="Sign out"
           />
         </IconMenu>
-  );
+      );
 
     case 'user/signupvalidateemail':
     case 'user/forgotpwdreset': // eslint-disable-line no-case-declarations
