@@ -17,7 +17,7 @@ module.exports = function (action, user, params, cb) {
       console.log(`  This email is valid for the next ${email.expires.signUpEmailTokenTimeValidText}.`);
       return cb(null);
     case 'resend':
-      console.log(`-- Resending email to ${user.email} to verify new user\'s email addr`);
+      console.log(`-- Resending email to ${user.email} to verify new user's email addr`);
       console.log(`Dear ${user.username}, please click this link to verify your email addr.`);
       console.log(`  http://localhost:3030/user/verify/${user.verifyToken}`);
       console.log(`  This email is valid for the next ${email.expires.signUpEmailTokenTimeValidText}.`);

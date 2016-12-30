@@ -9,6 +9,12 @@ so you can focus on your app development.
 A local auth UI is provided for use,
 and as a working example of Feathers + Redux integration.
 
+## <a name="features"></a> Requirements
+
+ - Windows or Linux builds now working
+ - Minimum node Version 7.?.x
+ - npm versions (3.10.9, 3.9.5)
+
 [![Build Status](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles.svg?branch=master)](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles)
 
 ## <a name="features"></a> Features
