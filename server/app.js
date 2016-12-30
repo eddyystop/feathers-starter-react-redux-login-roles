@@ -52,7 +52,7 @@ const app = feathers()
   // Utilities
   .use(compress())
 
-  // Feathers setup fwith REST and socketio support
+  // Feathers setup with REST and socketio support
   .configure(hooks())
   .configure(rest())
   .configure(socketio())

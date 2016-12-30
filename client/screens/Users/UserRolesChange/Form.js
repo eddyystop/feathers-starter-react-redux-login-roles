@@ -17,16 +17,16 @@ const renderUsers = ({ fields }) => {
         </tr>
       </thead>
       <tbody className={styleTable.tbody}>
-      {fields.map((userFieldName /* , index */) => (
-        <tr key={userFieldName}>
-          <td>
-            <Field name={`${userFieldName}.username`} component="input" disabled />
-          </td>
-          <td>
-            <Field name={`${userFieldName}.roles`} component="input" />
-          </td>
-        </tr>
-      ))}
+        {fields.map((userFieldName /* , index */) => (
+          <tr key={userFieldName}>
+            <td>
+              <Field name={`${userFieldName}.username`} component="input" disabled />
+            </td>
+            <td>
+              <Field name={`${userFieldName}.roles`} component="input" />
+            </td>
+          </tr>
+        ))}
       </tbody>
     </table>
   );
