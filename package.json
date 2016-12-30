@@ -23,10 +23,10 @@
     "win:start": "set NODE_ENV=production && node server/index.js",
     "win:start:dev": "set NODE_ENV=development && node server/index.js",
     "win:start:devserver": "set NODE_ENV=devserver && node server/index.js",
-    "npm:patch": "npm version patch && npm publish",
-    "npm:minor": "npm version minor && npm publish",
-    "npm:major": "npm version major && npm publish",
-    "npm:updates": "npm-check-updates"
+    "release:patch": "npm version patch && npm publish",
+    "release:minor": "npm version minor && npm publish",
+    "release:major": "npm version major && npm publish",
+    "release:updates": "npm-check-updates"
   },
   "repository": {
     "type": "git",
