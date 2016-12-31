@@ -1,5 +1,14 @@
 # Change Log
 
+## [v0.3.1](https://github.com/eddyystop/feathers-starter-react-redux-login-roles/tree/v0.3.1) (2016-12-31)
+[Full Changelog](https://github.com/eddyystop/feathers-starter-react-redux-login-roles/compare/v0.3.0...v0.3.1)
+
+**Closed issues:**
+
+- build:devserver and start:devserver fail to launch on windows after upgrading to 0.3.0 [\#11](https://github.com/eddyystop/feathers-starter-react-redux-login-roles/issues/11)
+- Minimum node version--5 \(package.json\) or 7 \(readme\)? [\#10](https://github.com/eddyystop/feathers-starter-react-redux-login-roles/issues/10)
+- npm run build broken on Windows [\#7](https://github.com/eddyystop/feathers-starter-react-redux-login-roles/issues/7)
+
 ## [v0.3.0](https://github.com/eddyystop/feathers-starter-react-redux-login-roles/tree/v0.3.0) (2016-12-30)
 [Full Changelog](https://github.com/eddyystop/feathers-starter-react-redux-login-roles/compare/v0.2.4...v0.3.0)
 
