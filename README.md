@@ -12,8 +12,8 @@ and as a working example of Feathers + Redux integration.
 ## <a name="features"></a> Requirements
 
  - Windows or Linux builds now working
- - Minimum node Version 7.?.x
- - npm versions (3.10.9, 3.9.5)
+ - Minimum node Version 6.9.0
+ - npm versions (3.10.8)
 
 [![Build Status](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles.svg?branch=master)](https://travis-ci.org/eddyystop/feathers-starter-react-redux-login-roles)
 
