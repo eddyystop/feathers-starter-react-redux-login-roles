@@ -54,6 +54,7 @@ Form.propTypes = {
   invalid: PropTypes.bool.isRequired,
   reset: PropTypes.func.isRequired,
   submitting: PropTypes.bool.isRequired,
+  resetToken: PropTypes.string.isRequired,
 };
 
 export default Form;

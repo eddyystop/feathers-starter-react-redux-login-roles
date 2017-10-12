@@ -8,11 +8,10 @@ import { feathersServices } from '../../../feathers';
 import Form from './Form';
 import usersClientValidations from '../../../../common/helpers/usersClientValidations';
 
-let token;
-
-const handleSubmit = (values, dispatch) => new Promise((resolve, reject) => {
+// all props are passed through reduxForm to the Form, so we just pick resetToken
+const handleSubmit = (values, dispatch, props) => new Promise((resolve, reject) => {
   dispatch(feathersServices.verifyReset.create(
-    { action: 'reset', value: { token, password: values.password } }
+    { action: 'reset', value: { token: props.resetToken, password: values.password } }
   ))
     .then(() => {
       dispatch(push('/user/signin'));
@@ -24,15 +23,8 @@ const handleSubmit = (values, dispatch) => new Promise((resolve, reject) => {
     ));
 });
 
-const mapStateToProps = (state, ownProps) => {
-  token = ownProps.resetToken; // there must be a cleaner way to get token to handleSubmit
-  return {};
-};
-
 // decorate with redux
-export default connect(
-  mapStateToProps
-)(
+export default connect()(
   // decorate react component with redux-form
   reduxForm({
     form: 'UserForgotPwdReset',
