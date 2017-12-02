@@ -39,7 +39,7 @@ exports.before = (app) => {
       // Only the owner (user) or admin can get a user
       auth.restrictToRoles({
         roles: ['superAdmin', 'admin'],
-        ownerField: '_id',
+        ownerField: idName,
         owner: true
       }),
     ],
@@ -61,7 +61,7 @@ exports.before = (app) => {
       // Only the owner (user) or admin can update a user
       auth.restrictToRoles({
         roles: ['superAdmin', 'admin'],
-        ownerField: '_id',
+        ownerField: idName,
         owner: true
       }),
     ],
@@ -72,7 +72,7 @@ exports.before = (app) => {
       // Only the owner (user) or admin can get a user
       auth.restrictToRoles({
         roles: ['superAdmin', 'admin'],
-        ownerField: '_id',
+        ownerField: idName,
         owner: true
       }),
     ],
@@ -83,7 +83,7 @@ exports.before = (app) => {
       // Only the owner (user) or admin can remove a user
       auth.restrictToRoles({
         roles: ['superAdmin', 'admin'],
-        ownerField: '_id',
+        ownerField: idName,
         owner: true
       }),
     ],
