@@ -40,7 +40,7 @@ exports.before = (app) => {
       auth.restrictToRoles({
         roles: ['superAdmin', 'admin'],
         ownerField: idName,
-        owner: true
+        owner: true,
       }),
     ],
     create: [
@@ -62,7 +62,7 @@ exports.before = (app) => {
       auth.restrictToRoles({
         roles: ['superAdmin', 'admin'],
         ownerField: idName,
-        owner: true
+        owner: true,
       }),
     ],
     patch: [ // client route /user/rolechange patches roles. todo might check its an admin acct
@@ -73,7 +73,7 @@ exports.before = (app) => {
       auth.restrictToRoles({
         roles: ['superAdmin', 'admin'],
         ownerField: idName,
-        owner: true
+        owner: true,
       }),
     ],
     remove: [
@@ -84,7 +84,7 @@ exports.before = (app) => {
       auth.restrictToRoles({
         roles: ['superAdmin', 'admin'],
         ownerField: idName,
-        owner: true
+        owner: true,
       }),
     ],
   };
