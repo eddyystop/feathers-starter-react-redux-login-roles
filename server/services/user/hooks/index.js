@@ -25,12 +25,23 @@ exports.before = (app) => {
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated(),
+      // Only allow admin to list all users
+      auth.restrictToRoles({
+        roles: ['superAdmin', 'admin'],
+        idField: idName,
+        owner: false,
+      }),
     ],
     get: [
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated(),
-      auth.restrictToOwner({ ownerField: idName }),
+      // Only the owner (user) or admin can get a user
+      auth.restrictToRoles({
+        roles: ['superAdmin', 'admin'],
+        ownerField: idName,
+        owner: true,
+      }),
     ],
     create: [
       validateSchema.form(schemas.signup, schemas.options), // schema validation
@@ -47,18 +58,34 @@ exports.before = (app) => {
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated(),
-      auth.restrictToOwner({ ownerField: idName }),
+      // Only the owner (user) or admin can update a user
+      auth.restrictToRoles({
+        roles: ['superAdmin', 'admin'],
+        ownerField: idName,
+        owner: true,
+      }),
     ],
     patch: [ // client route /user/rolechange patches roles. todo might check its an admin acct
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated(),
+      // Only the owner (user) or admin can get a user
+      auth.restrictToRoles({
+        roles: ['superAdmin', 'admin'],
+        ownerField: idName,
+        owner: true,
+      }),
     ],
     remove: [
       auth.verifyToken(),
       auth.populateUser(),
       auth.restrictToAuthenticated(),
-      auth.restrictToOwner({ ownerField: idName }),
+      // Only the owner (user) or admin can remove a user
+      auth.restrictToRoles({
+        roles: ['superAdmin', 'admin'],
+        ownerField: idName,
+        owner: true,
+      }),
     ],
   };
 };
