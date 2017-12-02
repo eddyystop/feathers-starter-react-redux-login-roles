@@ -59,7 +59,7 @@ module.exports = {
   users: {
     roles: {
       // the first user added to an empty users file is made an administrator using these roles.
-      forFirstUser: 'superAdmin admin',
+      forFirstUser: ['superAdmin', 'admin'],
       // the default roles for a new user
       default: '',
       // roles allowed to change the roles of other users
