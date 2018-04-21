@@ -5,7 +5,6 @@
 data/
 data-dev/
 # log folders
-logs/
 logs-dev/
 # builds
 public/dist/
