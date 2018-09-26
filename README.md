@@ -1,3 +1,6 @@
+DEPRECATED. Goodbye, adiós, au revoir, auf Wiedersehen, zàijiàn.
+Time has passed this repo by. Bye!
+
 ## feathers-starter-react-redux-login-roles
 Production ready starter package.
 Local auth, roles; React-Router auth.
