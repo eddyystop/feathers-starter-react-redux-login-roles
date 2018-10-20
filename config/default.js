@@ -79,8 +79,14 @@ module.exports = {
     subs: {
       // text to include in emails and the sign up verification screen
       productName: '[feathers-starter-react-redux-login-roles]',
-      productUrl: '[http://feathers-starter.feathersjs.com]',
-      senderName: '[Feathers Starter]',
+      productUrl: defer(finalConfig => {
+        let url = `http://${finalConfig.server.host}`;
+        if (`${finalConfig.server.port}` !== '80') {
+          url += `:${finalConfig.server.port}`;
+        }
+        return url;
+      }),
+      senderName: defer(finalConfig => `${finalConfig.authEmails.subs.productName} Verifier`),
       fromEmail: '[Feathers Starter <feathers-starter@gmail00.com>]',
       supportEmail: '[Starter Support <feathers-starter@gmail00.com>]',
       copyrightYears: '2015-2016',
